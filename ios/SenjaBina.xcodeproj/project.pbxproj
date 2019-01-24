@@ -22,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2CF7962EACB6AE3F0E007483 /* libPods-SenjaBina-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BA2EB5DCB97BD89DB42CEB8 /* libPods-SenjaBina-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -39,12 +40,21 @@
 		45AC1DDC21D0C49700B1F841 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45AC1DDA21D0C49700B1F841 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45AC1DDF21D0C4A700B1F841 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AC1DDE21D0C4A700B1F841 /* QBImagePicker.framework */; };
 		45AC1DE021D0C4A700B1F841 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45AC1DDE21D0C4A700B1F841 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A629F658B2B4A1D8C6AC337 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9051B6CE14542B463D993 /* libc++.tbd */; };
+		5F24902D0D664978AA1DF62E /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E995E69E93643C3AD9C0CCD /* libRealmReact.a */; };
+		775081F23C5013E628D0951F /* libPods-SenjaBinaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA720EBDE2D6B70DEF4D98BB /* libPods-SenjaBinaTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		85443C27D4184EB08D98E631 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932E5B1FFBDA475AB8B4364B /* libAppCenterReactNativeCrashes.a */; };
+		A1CA6F2185A24087AC99C3C4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1CB648B69942488940F4F4 /* libz.tbd */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AEF1DB61B98C4EE9859834FF /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F7BBE1CE25E4A829493A74A /* libimageCropPicker.a */; };
-		5F24902D0D664978AA1DF62E /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E995E69E93643C3AD9C0CCD /* libRealmReact.a */; };
-		4A629F658B2B4A1D8C6AC337 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9051B6CE14542B463D993 /* libc++.tbd */; };
-		A1CA6F2185A24087AC99C3C4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1CB648B69942488940F4F4 /* libz.tbd */; };
+		B9330EB1A6274D918CD72ABE /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F06B458E714436B35657BD /* libAppCenterReactNativeAnalytics.a */; };
+		C97A355FCCDD4D528AC8DA75 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 058F20A55C2D428FB07D4F2A /* libCodePush.a */; };
+		D62F0DB31D2754E542D60682 /* libPods-SenjaBina-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDEFD7299FA98FAA5C89068 /* libPods-SenjaBina-tvOS.a */; };
+		EB405E2597D241E88E6737D7 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEE179C609EB49BCA3F06ED3 /* libAppCenterReactNative.a */; };
+		EBA3FC7C65AE44BB9B7D39EC /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 061FB988254F4B37B08A0E94 /* AppCenter-Config.plist */; };
+		F83AF5B93B34FEE220514CBD /* libPods-SenjaBina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D2C82C0072EEB5C7D1B4B7 /* libPods-SenjaBina.a */; };
+		29CACC9F8B2B4BB7A89AE46C /* libAppCenterReactNativePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF414AEE67F47C9A45727CB /* libAppCenterReactNativePush.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,6 +365,10 @@
 		00E356EE1AD99517003FC87E /* SenjaBinaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SenjaBinaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SenjaBinaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SenjaBinaTests.m; sourceTree = "<group>"; };
+		01D2C82C0072EEB5C7D1B4B7 /* libPods-SenjaBina.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SenjaBina.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		058F20A55C2D428FB07D4F2A /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libCodePush.a; path = libCodePush.a; sourceTree = "<group>"; };
+		061FB988254F4B37B08A0E94 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "SenjaBina/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		0E995E69E93643C3AD9C0CCD /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libRealmReact.a; path = libRealmReact.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SenjaBina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SenjaBina.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -364,22 +378,41 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SenjaBina/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SenjaBina/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SenjaBina/main.m; sourceTree = "<group>"; };
+		13F06B458E714436B35657BD /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libAppCenterReactNativeAnalytics.a; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		148561E5446675DE12522B15 /* Pods-SenjaBina-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina-tvOS/Pods-SenjaBina-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		1859493DD5CF4F5B8C9A4D50 /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		18A9051B6CE14542B463D993 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		26F51481EA3AAE952B720598 /* Pods-SenjaBina-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina-tvOSTests/Pods-SenjaBina-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* SenjaBina-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SenjaBina-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* SenjaBina-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SenjaBina-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		38B9FE16BE88998F637F4019 /* Pods-SenjaBina-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina-tvOSTests/Pods-SenjaBina-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		3B37BB84523E4262BF99794F /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
 		45AC1DDA21D0C49700B1F841 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AC1DDE21D0C4A700B1F841 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C95674CA8924AA0AEB998DF /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
+		56CEA6E07F61D7498722E165 /* Pods-SenjaBinaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBinaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBinaTests/Pods-SenjaBinaTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6855129A915D41CBB5344316 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
+		69EFEECCCFF542089E4FE0E6 /* AppCenterReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNative.xcodeproj; path = ../node_modules/appcenter/ios/AppCenterReactNative.xcodeproj; sourceTree = "<group>"; };
+		6B0C0F0FB15809CF589959A1 /* Pods-SenjaBina-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina-tvOS/Pods-SenjaBina-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6BA2EB5DCB97BD89DB42CEB8 /* libPods-SenjaBina-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SenjaBina-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72EB9BAB830746C5A4C726FC /* AppCenterReactNativeCrashes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeCrashes.xcodeproj; path = "../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8BDEFD7299FA98FAA5C89068 /* libPods-SenjaBina-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SenjaBina-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7BBE1CE25E4A829493A74A /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
+		932E5B1FFBDA475AB8B4364B /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libAppCenterReactNativeCrashes.a; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		4C95674CA8924AA0AEB998DF /* RealmReact.xcodeproj */ = {isa = PBXFileReference; name = "RealmReact.xcodeproj"; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		0E995E69E93643C3AD9C0CCD /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		18A9051B6CE14542B463D993 /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
-		FD1CB648B69942488940F4F4 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		BA720EBDE2D6B70DEF4D98BB /* libPods-SenjaBinaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SenjaBinaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEE179C609EB49BCA3F06ED3 /* libAppCenterReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libAppCenterReactNative.a; path = libAppCenterReactNative.a; sourceTree = "<group>"; };
+		C23FF7FFFF8CEFE977AC5B5E /* Pods-SenjaBinaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBinaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBinaTests/Pods-SenjaBinaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E1B69580A4752952B4065A7B /* Pods-SenjaBina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina/Pods-SenjaBina.debug.xcconfig"; sourceTree = "<group>"; };
+		F14359BC318A9FD0644B1318 /* Pods-SenjaBina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenjaBina.release.xcconfig"; path = "Pods/Target Support Files/Pods-SenjaBina/Pods-SenjaBina.release.xcconfig"; sourceTree = "<group>"; };
+		FD1CB648B69942488940F4F4 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		35D6F3B341D84E18974135DC /* AppCenterReactNativePush.xcodeproj */ = {isa = PBXFileReference; name = "AppCenterReactNativePush.xcodeproj"; path = "../node_modules/appcenter-push/ios/AppCenterReactNativePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7AF414AEE67F47C9A45727CB /* libAppCenterReactNativePush.a */ = {isa = PBXFileReference; name = "libAppCenterReactNativePush.a"; path = "libAppCenterReactNativePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				775081F23C5013E628D0951F /* libPods-SenjaBinaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +447,12 @@
 				5F24902D0D664978AA1DF62E /* libRealmReact.a in Frameworks */,
 				4A629F658B2B4A1D8C6AC337 /* libc++.tbd in Frameworks */,
 				A1CA6F2185A24087AC99C3C4 /* libz.tbd in Frameworks */,
+				C97A355FCCDD4D528AC8DA75 /* libCodePush.a in Frameworks */,
+				EB405E2597D241E88E6737D7 /* libAppCenterReactNative.a in Frameworks */,
+				B9330EB1A6274D918CD72ABE /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				85443C27D4184EB08D98E631 /* libAppCenterReactNativeCrashes.a in Frameworks */,
+				F83AF5B93B34FEE220514CBD /* libPods-SenjaBina.a in Frameworks */,
+				29CACC9F8B2B4BB7A89AE46C /* libAppCenterReactNativePush.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +468,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
+				D62F0DB31D2754E542D60682 /* libPods-SenjaBina-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+				2CF7962EACB6AE3F0E007483 /* libPods-SenjaBina-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +606,10 @@
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				18A9051B6CE14542B463D993 /* libc++.tbd */,
 				FD1CB648B69942488940F4F4 /* libz.tbd */,
+				01D2C82C0072EEB5C7D1B4B7 /* libPods-SenjaBina.a */,
+				8BDEFD7299FA98FAA5C89068 /* libPods-SenjaBina-tvOS.a */,
+				6BA2EB5DCB97BD89DB42CEB8 /* libPods-SenjaBina-tvOSTests.a */,
+				BA720EBDE2D6B70DEF4D98BB /* libPods-SenjaBinaTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -619,6 +665,11 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				3B37BB84523E4262BF99794F /* imageCropPicker.xcodeproj */,
 				4C95674CA8924AA0AEB998DF /* RealmReact.xcodeproj */,
+				6855129A915D41CBB5344316 /* CodePush.xcodeproj */,
+				69EFEECCCFF542089E4FE0E6 /* AppCenterReactNative.xcodeproj */,
+				1859493DD5CF4F5B8C9A4D50 /* AppCenterReactNativeAnalytics.xcodeproj */,
+				72EB9BAB830746C5A4C726FC /* AppCenterReactNativeCrashes.xcodeproj */,
+				35D6F3B341D84E18974135DC /* AppCenterReactNativePush.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -643,6 +694,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				45AC1DAD21D0C38900B1F841 /* Recovered References */,
+				061FB988254F4B37B08A0E94 /* AppCenter-Config.plist */,
+				CA3B0FE8DF4C2646208B7776 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -669,6 +722,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CA3B0FE8DF4C2646208B7776 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E1B69580A4752952B4065A7B /* Pods-SenjaBina.debug.xcconfig */,
+				F14359BC318A9FD0644B1318 /* Pods-SenjaBina.release.xcconfig */,
+				6B0C0F0FB15809CF589959A1 /* Pods-SenjaBina-tvOS.debug.xcconfig */,
+				148561E5446675DE12522B15 /* Pods-SenjaBina-tvOS.release.xcconfig */,
+				26F51481EA3AAE952B720598 /* Pods-SenjaBina-tvOSTests.debug.xcconfig */,
+				38B9FE16BE88998F637F4019 /* Pods-SenjaBina-tvOSTests.release.xcconfig */,
+				C23FF7FFFF8CEFE977AC5B5E /* Pods-SenjaBinaTests.debug.xcconfig */,
+				56CEA6E07F61D7498722E165 /* Pods-SenjaBinaTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -676,6 +744,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SenjaBinaTests" */;
 			buildPhases = (
+				2F8CF96A283C1B149C0E8F70 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -694,6 +763,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SenjaBina" */;
 			buildPhases = (
+				FB36687B83E0310C02F249C9 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -713,6 +783,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SenjaBina-tvOS" */;
 			buildPhases = (
+				9AAD683A3BB3FB75D51C203B /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -731,6 +802,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SenjaBina-tvOSTests" */;
 			buildPhases = (
+				D9C61CF9319E89271E17C77B /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -1127,6 +1199,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				EBA3FC7C65AE44BB9B7D39EC /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1175,6 +1248,94 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		2F8CF96A283C1B149C0E8F70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SenjaBinaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9AAD683A3BB3FB75D51C203B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SenjaBina-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9C61CF9319E89271E17C77B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SenjaBina-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB36687B83E0310C02F249C9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SenjaBina-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1243,6 +1404,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C23FF7FFFF8CEFE977AC5B5E /* Pods-SenjaBinaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1253,12 +1415,22 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = SenjaBinaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1274,6 +1446,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56CEA6E07F61D7498722E165 /* Pods-SenjaBinaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1281,12 +1454,22 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = SenjaBinaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1302,6 +1485,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1B69580A4752952B4065A7B /* Pods-SenjaBina.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1310,6 +1494,11 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = SenjaBina/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1327,6 +1516,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F14359BC318A9FD0644B1318 /* Pods-SenjaBina.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1334,6 +1524,11 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = SenjaBina/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1351,6 +1546,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B0C0F0FB15809CF589959A1 /* Pods-SenjaBina-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1365,11 +1561,21 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = "SenjaBina-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1387,6 +1593,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 148561E5446675DE12522B15 /* Pods-SenjaBina-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1401,11 +1608,21 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = "SenjaBina-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1423,6 +1640,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26F51481EA3AAE952B720598 /* Pods-SenjaBina-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1436,11 +1654,21 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = "SenjaBina-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1458,6 +1686,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38B9FE16BE88998F637F4019 /* Pods-SenjaBina-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1471,11 +1700,21 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/realm/src/**",
+					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
+					"$(SRCROOT)/../node_modules/appcenter-push/ios/AppCenterReactNativePush",
 				);
 				INFOPLIST_FILE = "SenjaBina-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
