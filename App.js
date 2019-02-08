@@ -5,12 +5,24 @@ import SignInScreen from './src/screens/SignIn'
 import HomeScreen from './src/screens/Home'
 import AuthLoadingScreen from './src/screens/AuthLoading'
 import OtherScreen from './src/screens/Other'
+import TaskScreen from './src/screens/Task'
+import VacantPremiseScreen from './src/screens/lists/VacantPremise'
+import TariffConfirmationScreen from './src/screens/lists/TariffConfirmation'
+import DomesticScreen from './src/screens/lists/Domestic'
+import NonDomesticScreen from './src/screens/lists/NonDomestic'
+import VacantPremiseFormScreen from './src/screens/lists/VacantPremiseForm'
 
 import CodePush from 'react-native-code-push'
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
-  Other: OtherScreen
+  Other: OtherScreen,
+  Task: TaskScreen,
+  VacantPremise: VacantPremiseScreen,
+  TariffConfirmation: TariffConfirmationScreen,
+  Domestic: DomesticScreen,
+  NonDomestic: NonDomesticScreen,
+  VacantPremiseForm: VacantPremiseFormScreen
 });
 
 const AuthStack = createStackNavigator({
