@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, FlatList } from 'react-native'
 import theme from '../../assets/theme'
-import { queryAllTaskListOpen, sewaccFilter } from '../../database/allSchemas'
+import { sewaccCompletedFilter, queryNotUploadYetCompletedTask } from '../../database/allSchemas'
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default class VacantPremiseScreen extends Component {
-    static navigationOptions = {
-        title: 'List of Vacant Premises',
-        headerStyle: {
-            backgroundColor: '#fa983a'
-        }
+export default class VacantPremiseCompleteScreen extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return ({
+            title: 'Completed Vacant Premises',
+            headerStyle: {
+                backgroundColor: '#fa983a'
+            },
+            headerRight: (
+                <Icon
+                    name="md-cloud-upload"
+                    onPress={() => navigation.state.params.handleUpload()}
+                    size={30}
+                    style={{ marginRight: 10, color: '#fff' }} />
+            )
+        })
+
     };
 
     constructor(props) {
@@ -26,13 +36,16 @@ export default class VacantPremiseScreen extends Component {
           });
     }
 
+    _handleUpload = () => {
+        this.props.navigation.navigate('Uploading')
+    }
+
     _updateSearch = search => {
         this.setState({ search });
     };
 
-
     _reloadData = () => {
-        queryAllTaskListOpen().then((taskList) => {
+        queryNotUploadYetCompletedTask().then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -44,6 +57,7 @@ export default class VacantPremiseScreen extends Component {
     }
 
     componentDidMount() {
+        this.props.navigation.setParams({ handleUpload: this._handleUpload })
         this._reloadData()
     }
 
@@ -86,7 +100,7 @@ export default class VacantPremiseScreen extends Component {
                         let taskdetail = JSON.parse(item.taskdetail)
                         return (
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('VacantPremiseForm', {
+                                onPress={() => this.props.navigation.navigate('VacantPremiseCompleteForm', {
                                     data: item,
                                     id: item.id,
                                     seq_id: taskdetail.seq_id,
@@ -106,7 +120,7 @@ export default class VacantPremiseScreen extends Component {
     }
 
     _querySewacc = (sewaccInput) => {
-        sewaccFilter(sewaccInput).then((sewaccFilter) => {
+        sewaccCompletedFilter(sewaccInput).then((sewaccFilter) => {
             this.setState({
                 taskList: sewaccFilter
             })

@@ -4,11 +4,11 @@ import theme from '../../assets/theme'
 import { Input, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ImagePicker from 'react-native-image-crop-picker';
-import { insertNewTaskDone, updateTaskList } from '../../database/allSchemas';
+import { updateTaskDone, updateTaskList } from '../../database/allSchemas';
 
 const w = Dimensions.get('window').width / 3
 
-export default class VacantPremiseForm extends Component {
+export default class VacantPremiseCompletedForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -17,27 +17,27 @@ export default class VacantPremiseForm extends Component {
             seq_id: this.props.navigation.getParam('seq_id'),
             sewacc: '',
             image: [],
-            showme: false,
+            showme: true,
             remarks: '',
             occupied: true
         }
     }
+
     static navigationOptions = ({ navigation }) => {
         const { state } = navigation;
         return {
-            title: 'Vacant Premise : ' + state.params.title,
+            title: 'C Vacant Premise : ' + state.params.title,
             headerStyle: {
                 backgroundColor: '#fa983a',
                 tintColor: '#fff'
             }
-        };
+        }; 
     };
 
     render() {
         let task = JSON.parse(this.state.taskData.taskdetail)
         return (
             <ScrollView>
-
                 <View style={theme.formViewArea}>
                     <View style={theme.formView}>
                         <Text style={theme.formViewLabel}>Owner Name : </Text>
@@ -63,7 +63,8 @@ export default class VacantPremiseForm extends Component {
                 </View>
                 <View style={{ margin: 10 }}>
                     <View>
-                        <Input placeholder="Remarks" onChangeText={(remarks) => this.setState({ remarks })} />
+                        <Input placeholder="Remarks" onChangeText={(remarks) => this.setState({ remarks })}
+                        value={this.state.remarks} />
                     </View>
                     <View>
                         <CheckBox
@@ -82,8 +83,8 @@ export default class VacantPremiseForm extends Component {
                     </View>
                 </View>
                 <TouchableOpacity style={theme.fullBlock}
-                    onPress={this._submitForm}>
-                    <Text style={theme.fullBlockText}>SAVE TASK</Text>
+                    onPress={this._updateTask}>
+                    <Text style={theme.fullBlockText}>UPDATE TASK</Text>
                 </TouchableOpacity>
             </ScrollView>
         )
@@ -160,35 +161,31 @@ export default class VacantPremiseForm extends Component {
         });
     }
 
-    _submitForm = () => {
+    _updateTask = () => {
         let perform_datetime = new Date().toJSON().toString().replace('T', ' ').replace('Z', '')
         let taskPerform = {
+            id: parseInt(this.state.taskid),
             name: 'vacant_premise',
             seq_id: this.state.seq_id,
             taskdetail: this.state.taskData.taskdetail,
             taskperform: JSON.stringify({
                 remarks: this.state.remarks,
-                actual_classfication: '',
-                meter_connected: '',
-                meter_number: '',
-                perform_date: perform_datetime,
                 images: this.state.image
             }),
-            status: '',
-            datetime: perform_datetime
-        }
-        let updateTask = {
-            id: parseInt(this.state.taskid),
-            status: 'done',
             datetime: perform_datetime
         }
 
-        insertNewTaskDone(taskPerform)
-        updateTaskList(updateTask)
-        this.props.navigation.navigate('VacantPremise')
+        updateTaskDone(taskPerform)
+        this.props.navigation.navigate('VacantPremiseComplete')
     }
 
     componentDidMount() {
+        let taskData = JSON.parse(this.state.taskData.taskperform)
+        console.log(taskData)
+        this.setState({
+            image: taskData.images,
+            remarks: taskData.remarks
+        })
         // ImagePicker.clean().then(() => {
         //     console.log('removed all tmp images from tmp directory');
         // }).catch(e => {

@@ -14,4 +14,4 @@ var _Environments = {
     },
 }
 
-export default Environment = _Environments.production;
+export default Environment = _Environments.development;

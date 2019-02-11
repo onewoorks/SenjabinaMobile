@@ -11,6 +11,9 @@ import TariffConfirmationScreen from './src/screens/lists/TariffConfirmation'
 import DomesticScreen from './src/screens/lists/Domestic'
 import NonDomesticScreen from './src/screens/lists/NonDomestic'
 import VacantPremiseFormScreen from './src/screens/lists/VacantPremiseForm'
+import VacantPremiseCompletedScreen from './src/screens/lists/VacantPremiseComplete'
+import VacantPremiseCompletedFormScreen from './src/screens/completed/VacantPremiseCompletedForm'
+import UploadingScreen from './src/screens/Uploading'
 
 import CodePush from 'react-native-code-push'
 
@@ -22,7 +25,10 @@ const AppStack = createStackNavigator({
   TariffConfirmation: TariffConfirmationScreen,
   Domestic: DomesticScreen,
   NonDomestic: NonDomesticScreen,
-  VacantPremiseForm: VacantPremiseFormScreen
+  VacantPremiseForm: VacantPremiseFormScreen,
+  VacantPremiseComplete: VacantPremiseCompletedScreen,
+  VacantPremiseCompleteForm: VacantPremiseCompletedFormScreen,
+  Uploading: UploadingScreen
 });
 
 const AuthStack = createStackNavigator({

@@ -42,14 +42,15 @@ export const TaskDoneSchema = {
         seq_id: 'string',
         taskdetail: 'string',
         taskperform: 'string',
-        datetime: 'string'
+        datetime: 'string',
+        status: 'string'
     }
 }
 
 const databaseOption = {
     path: 'senjaBinaApp.realm',
     schema: [TaskSchema, TaskListSchema, TaskDoneSchema],
-    schemaVersion: 4
+    schemaVersion: 5
 }
 
 export const insertNewTaskDone = newTaskDone => new Promise((resolve, reject) => {
@@ -145,17 +146,107 @@ export const queryAllTaskList = () => new Promise((resolve, reject) => {
         ).catch((error) => reject(error))
 })
 
+export const queryAllTaskListOpen = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskList = realm.objects(TASKLIST_SCHEMA).filtered('status=""')
+                    resolve(allTaskList)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
 export const queryAllCompletedTask = () => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
         .then(
             realm => {
                 realm.write(() => {
-                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA)
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status!="uploaded"')
                     resolve(allTaskDone)
                 })
             }
         ).catch((error) => reject(error))
         
+})
+
+export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status!="uploaded"')
+                    resolve(allTaskDone)
+                })
+            }
+        ).catch((error) => reject(error))
+        
+})
+
+export const queryCompletedTask = taskId => new Promise((resolve, reject) => {
+    console.log('inn')
+    Realm.open(databaseOption)
+    .then(
+        realm => {
+            realm.write(() => {
+                let taskdetail = realm.objects(TASK_DONE_SCHEMA).filtered('id="'+ taskId+'"')
+                console.log(taskdetail);
+                resolve(taskdetail)
+            })
+        }
+    ).catch((error) => reject(error))
+})
+
+export const sewaccCompletedFilter = sewacc => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let filteredCompletedSewacc = realm.objects(TASK_DONE_SCHEMA).filtered('seq_id="' + sewacc + '"')
+                    resolve(filteredCompletedSewacc)
+                })
+            }
+        ).catch((error)=> reject(error))
+})
+
+export const updateTaskDone = taskList => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let updatingTaskList = realm.objectForPrimaryKey(TASK_DONE_SCHEMA, taskList.id)
+                    updatingTaskList.taskperform = taskList.taskperform
+                    updatingTaskList.status = taskList.status
+                    resolve(updatingTaskList)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
+export const deletAllTaskCompletedTask = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTask = realm.objects(TASK_DONE_SCHEMA)
+                    realm.delete(allTask)
+                    resolve()
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
+export const taskUploaded = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let uploaded = realm.objects(TASK_DONE_SCHEMA).filtered('status="uploaded"')
+                    resolve(uploaded)
+                })
+            }
+        ).catch((error) => reject(error))
 })
 
 export default new Realm(databaseOption)

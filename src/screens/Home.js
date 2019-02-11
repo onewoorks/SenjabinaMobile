@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { AsyncStorage, View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import theme from '../assets/theme'
 import Env from '../assets/config'
-import { queryAllTaskList, insertNewTaskList, deletAllTaskList, queryAllCompletedTask } from '../database/allSchemas'
+import {
+  queryAllTaskList,
+  insertNewTaskList,
+  deletAllTaskList,
+  queryAllCompletedTask,
+  deletAllTaskCompletedTask,
+  taskUploaded
+} from '../database/allSchemas'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class HomeScreen extends Component {
@@ -28,9 +35,13 @@ export default class HomeScreen extends Component {
       totalTask: 0,
       totalCompletedTask: 0,
       totalNewTaskFetch: 0,
+      totalUploaded: 0,
       userInfo: null,
       buttonLoadServerLabel: 'LOAD TASK FROM SERVER'
     }
+    this.willFocus = this.props.navigation.addListener('willFocus', () => {
+      this._loadTask()
+    });
   }
 
   render() {
@@ -56,9 +67,16 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
           </View>
           <View >
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Task')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('VacantPremiseComplete')}>
               <Text style={theme.homeNumber}>{this.state.totalCompletedTask}</Text>
               <Text style={theme.homeTaskText}>TASK COMPLETED</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('VacantPremiseComplete')}>
+              <Text style={theme.homeNumber}>{this.state.totalUploaded}</Text>
+              <Text style={theme.homeTaskText}>TOTAL UPLOADED</Text>
             </TouchableOpacity>
           </View>
 
@@ -75,12 +93,14 @@ export default class HomeScreen extends Component {
           <View style={{ flex: 0.8, height: 60, backgroundColor: '#079992', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity onPress={this._fetchTask}>
               <Text style={theme.fullBlockText}>
-              <Icon name="md-cloud-download" size={24} /> {this.state.buttonLoadServerLabel}</Text>
+                <Icon name="md-cloud-download" size={24} /> {this.state.buttonLoadServerLabel}</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.2, height: 60, backgroundColor: '#eb2f06', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ flex: 0.2, height: 60, backgroundColor: '#eb2f06', justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity onPress={this._deleteAllTask}>
-              <Text style={theme.fullBlockText}>DELETE LOCAL DATA</Text>
+              <Text style={theme.fullBlockText}>
+                <Icon name="md-trash" size={24} />
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -92,6 +112,9 @@ export default class HomeScreen extends Component {
   _deleteAllTask = () => {
     deletAllTaskList().then(() => {
       console.log('data deleted')
+      this._loadTask();
+    })
+    deletAllTaskCompletedTask().then(() => {
       this._loadTask();
     })
   }
@@ -163,6 +186,12 @@ export default class HomeScreen extends Component {
       }).catch((error) => {
         console.log(error)
       })
+
+    taskUploaded().then((uploaded) => {
+      this.setState({
+        totalUploaded: uploaded.length
+      })
+    })
   }
 
   _showMoreApp = () => {
