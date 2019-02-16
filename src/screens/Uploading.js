@@ -61,9 +61,13 @@ export default class UploadingScreen extends Component {
         let taskDetail = JSON.parse(data.taskdetail)
         let images = taskPerform.images
 
+        console.log(data.taskdetail)
+        console.log(data.taskperform)
+
         form.append('task_detail', `${data.taskdetail}`)
         form.append('task_perform', `${data.taskperform}`)
         form.append('remarks', `${taskPerform.remarks}`)
+        form.append('perform_staff', `${data.perform_staff}`)
         images.forEach((value, i) => {
             form.append(`image_${i}`, {
                 uri: Platform.OS === "android" ? value.path : value.path.replace("file://", ""),
@@ -82,8 +86,9 @@ export default class UploadingScreen extends Component {
                     let taskDone = {
                         id: parseInt(data.id),
                         taskperform: data.taskperform,
-                        status:'uploaded'
+                        status:'uploaded',
                     }
+                    console.log(taskDone)
                     updateTaskDone(taskDone)
                 })
                 .catch((error) => {

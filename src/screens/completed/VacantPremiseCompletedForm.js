@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Dimensions, AsyncStorage } from 'react-native'
 import theme from '../../assets/theme'
 import { Input, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -26,12 +26,12 @@ export default class VacantPremiseCompletedForm extends Component {
     static navigationOptions = ({ navigation }) => {
         const { state } = navigation;
         return {
-            title: 'C Vacant Premise : ' + state.params.title,
+            title: 'Vacant Premise : ' + state.params.title,
             headerStyle: {
                 backgroundColor: '#fa983a',
                 tintColor: '#fff'
             }
-        }; 
+        };
     };
 
     render() {
@@ -63,17 +63,35 @@ export default class VacantPremiseCompletedForm extends Component {
                 </View>
                 <View style={{ margin: 10 }}>
                     <View>
+                        <Input
+                            placeholder="Actual Classfication"
+                            onChangeText={(actual_classification) => this.setState({ actual_classification })}
+                            value={this.state.actual_classification} />
+                    </View>
+                    <View>
+                        <Input
+                            placeholder="Meter Connected"
+                            onChangeText={(meter_connected) => this.setState({ meter_connected })}
+                            value={this.state.meter_connected} />
+                    </View>
+                    <View>
+                        <Input
+                            placeholder="Meter Number"
+                            onChangeText={(meter_number) => this.setState({ meter_number })}
+                            value={this.state.meter_number} />
+                    </View>
+                    <View>
                         <Input placeholder="Remarks" onChangeText={(remarks) => this.setState({ remarks })}
-                        value={this.state.remarks} />
+                            value={this.state.remarks} />
                     </View>
                     <View>
                         <CheckBox
                             iconRight
-                            style={{backgroundColor:'#fff'}}
+                            style={{ backgroundColor: '#fff' }}
                             right
                             title='Occupied'
                             checked={this.state.occupied}
-                            onPress={() => this.setState({occupied: !this.state.occupied})}
+                            onPress={() => this.setState({ occupied: !this.state.occupied })}
                         />
                     </View>
 
@@ -158,10 +176,14 @@ export default class VacantPremiseCompletedForm extends Component {
                 showme: true,
                 image: nowImage
             })
-        });
+        }).catch((err) => err)
     }
 
-    _updateTask = () => {
+    _updateTask = async () => {
+        let User = await AsyncStorage.getItem('userToken');
+        this.setState({
+            userInfo: JSON.parse(User)
+        })
         let perform_datetime = new Date().toJSON().toString().replace('T', ' ').replace('Z', '')
         let taskPerform = {
             id: parseInt(this.state.taskid),
@@ -170,9 +192,14 @@ export default class VacantPremiseCompletedForm extends Component {
             taskdetail: this.state.taskData.taskdetail,
             taskperform: JSON.stringify({
                 remarks: this.state.remarks,
+                actual_classification: this.state.actual_classification,
+                meter_connected: this.state.meter_connected,
+                meter_number: this.state.meter_number,
                 images: this.state.image
             }),
-            datetime: perform_datetime
+            status: 'done',
+            datetime: perform_datetime,
+            perform_sfatff: this.state.userInfo.info.id.toString()
         }
 
         updateTaskDone(taskPerform)
@@ -181,10 +208,12 @@ export default class VacantPremiseCompletedForm extends Component {
 
     componentDidMount() {
         let taskData = JSON.parse(this.state.taskData.taskperform)
-        console.log(taskData)
         this.setState({
             image: taskData.images,
-            remarks: taskData.remarks
+            remarks: taskData.remarks,
+            actual_classification: taskData.actual_classification,
+            meter_connected: taskData.meter_connected,
+            meter_number: taskData.meter_number
         })
         // ImagePicker.clean().then(() => {
         //     console.log('removed all tmp images from tmp directory');

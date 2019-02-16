@@ -111,7 +111,6 @@ export default class HomeScreen extends Component {
 
   _deleteAllTask = () => {
     deletAllTaskList().then(() => {
-      console.log('data deleted')
       this._loadTask();
     })
     deletAllTaskCompletedTask().then(() => {
@@ -139,7 +138,8 @@ export default class HomeScreen extends Component {
               seq_id: value.seq_id,
               taskdetail: JSON.stringify(value),
               status: '',
-              perform_datetime: ''
+              perform_datetime: '',
+              perform_staff: userInfo.info.id
             }
             insertNewTaskList(taskData)
             this.setState({

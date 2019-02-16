@@ -47,17 +47,6 @@ export default class VacantPremiseScreen extends Component {
         this._reloadData()
     }
 
-    render_x() {
-        return (
-            <View style={theme.container}>
-                <Listing
-                    style={{ width: 400 }}
-                    items={this.state.taskList} navigate={this.props.navigation}
-                />
-            </View>
-        )
-    }
-
     render() {
         return (
             <View style={theme.container}>

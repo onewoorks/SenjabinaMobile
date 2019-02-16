@@ -29,7 +29,8 @@ export const TaskListSchema = {
         seq_id: 'string',
         taskdetail: 'string',
         status: 'string',
-        perform_datetime: 'string'
+        perform_datetime: 'string',
+        perform_staff: 'string'
     }
 }
 
@@ -43,14 +44,15 @@ export const TaskDoneSchema = {
         taskdetail: 'string',
         taskperform: 'string',
         datetime: 'string',
-        status: 'string'
+        status: 'string',
+        perform_staff: 'string'
     }
 }
 
 const databaseOption = {
     path: 'senjaBinaApp.realm',
     schema: [TaskSchema, TaskListSchema, TaskDoneSchema],
-    schemaVersion: 5
+    schemaVersion: 6
 }
 
 export const insertNewTaskDone = newTaskDone => new Promise((resolve, reject) => {
@@ -61,6 +63,7 @@ export const insertNewTaskDone = newTaskDone => new Promise((resolve, reject) =>
                 newTaskDone.id = (typeof newId === 'undefined' ? 1 : newId + 1)
                 realm.write(() => {
                     realm.create(TASK_DONE_SCHEMA, newTaskDone)
+                    console.log(newTaskDone)
                     resolve(newTaskDone)
                 })
             }
@@ -82,7 +85,6 @@ export const insertNewTaskList = newTaskList => new Promise((resolve, reject) =>
 })
 
 export const updateTaskList = taskList => new Promise((resolve, reject) => {
-    console.log(taskList)
     Realm.open(databaseOption)
         .then(
             realm => {
@@ -90,6 +92,7 @@ export const updateTaskList = taskList => new Promise((resolve, reject) => {
                     let updatingTaskList = realm.objectForPrimaryKey(TASKLIST_SCHEMA, taskList.id)
                     updatingTaskList.status = taskList.status
                     updatingTaskList.perform_datetime = taskList.datetime
+                    updatingTaskList.perform_staff = taskList.perform_staff
                     resolve(updatingTaskList)
                 })
             }
@@ -211,6 +214,7 @@ export const sewaccCompletedFilter = sewacc => new Promise((resolve, reject) => 
 })
 
 export const updateTaskDone = taskList => new Promise((resolve, reject) => {
+    console.log(taskList)
     Realm.open(databaseOption)
         .then(
             realm => {
