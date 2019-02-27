@@ -4,11 +4,15 @@ import theme from '../../assets/theme'
 
 export default class DomesticScreen extends Component{
     static navigationOptions = {
-        title: 'Domestic'
+        title: 'Domestic',
+        headerStyle: {
+            backgroundColor:'#4a69bd'
+        },
+        headerTintColor: 'white'
     };
     render(){
         return(
-            <View style={theme.container}>
+            <View style={theme.domesticContainer}>
                 <Text>Domestic Screen</Text>
             </View>
         )

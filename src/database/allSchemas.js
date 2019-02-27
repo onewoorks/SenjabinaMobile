@@ -3,6 +3,17 @@ import Realm from 'realm'
 export const TASKLIST_SCHEMA = 'TaskList'
 export const TASK_SCHEMA = 'Task'
 export const TASK_DONE_SCHEMA = 'TaskDone'
+export const LOG_SCHEMA = 'Log'
+
+export const LogSchema = {
+    name: LOG_SCHEMA,
+    primaryKey: 'id',
+    properties: {
+        id: 'int',
+        key_name: 'string',
+        value: 'string'
+    }
+}
 
 export const TaskSchema = {
     name: TASK_SCHEMA,
@@ -27,6 +38,7 @@ export const TaskListSchema = {
         id: 'int',
         name: 'string',
         seq_id: 'string',
+        tab: 'string',
         taskdetail: 'string',
         status: 'string',
         perform_datetime: 'string',
@@ -41,6 +53,7 @@ export const TaskDoneSchema = {
         id: 'int',
         name: 'string',
         seq_id: 'string',
+        tab: 'string',
         taskdetail: 'string',
         taskperform: 'string',
         datetime: 'string',
@@ -51,9 +64,55 @@ export const TaskDoneSchema = {
 
 const databaseOption = {
     path: 'senjaBinaApp.realm',
-    schema: [TaskSchema, TaskListSchema, TaskDoneSchema],
-    schemaVersion: 6
+    schema: [TaskSchema, TaskListSchema, TaskDoneSchema, LogSchema],
+    schemaVersion: 8
 }
+
+export const InsertNewLog = newLog => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                let newId = realm.objects(LOG_SCHEMA).max('id')
+                newLog.id = (typeof newId === 'undefined' ? 1 : newId + 1)
+                realm.write(() => {
+                    realm.create(LOG_SCHEMA, newLog)
+                    resolve(newLog)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
+export const GetLastDataLog = keyname => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let maxId = realm.objects(LOG_SCHEMA).max('id')
+                    let exist = (typeof maxId === 'undefined' ? false : true)
+                    if (exist) {
+                        let lastKeyName = realm.objects(LOG_SCHEMA).filtered('key_name="' + keyname + '"').sorted('id', true)
+                        resolve(lastKeyName[0])
+                    } else {
+                        resolve(false)
+                    }
+
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
+export const DeleteAllLogs = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allLogs = realm.objects(LOG_SCHEMA)
+                    realm.delete(allLogs)
+                    resolve()
+                })
+            }
+        ).catch((error) => reject(error))
+})
 
 export const insertNewTaskDone = newTaskDone => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
@@ -84,6 +143,21 @@ export const insertNewTaskList = newTaskList => new Promise((resolve, reject) =>
         ).catch((error) => reject(error))
 })
 
+export const QueryTaskList = queryInfo => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let result = realm.objects(TASKLIST_SCHEMA)
+                        .filtered(
+                            'seq_id="' + queryInfo.seq_id + '" AND name="' + queryInfo.name + '" AND perform_staff="' + queryInfo.perform_staff + '" AND tab="'+ queryInfo.tab+'"')
+                    let exist = (result.length > 0) ? true : false
+                    resolve(exist)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
 export const updateTaskList = taskList => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
         .then(
@@ -104,7 +178,7 @@ export const sewaccFilter = sewacc => new Promise((resolve, reject) => {
         .then(
             realm => {
                 realm.write(() => {
-                    let filteredSewacc = realm.objects(TASKLIST_SCHEMA).filtered('seq_id="' + sewacc + '"')
+                    let filteredSewacc = realm.objects(TASKLIST_SCHEMA).filtered('seq_id="' + sewacc + '" AND status = ""')
                     resolve(filteredSewacc)
                 })
             }
@@ -149,12 +223,12 @@ export const queryAllTaskList = () => new Promise((resolve, reject) => {
         ).catch((error) => reject(error))
 })
 
-export const queryAllTaskListOpen = () => new Promise((resolve, reject) => {
+export const queryAllTaskListOpen = (module_name) => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
         .then(
             realm => {
                 realm.write(() => {
-                    let allTaskList = realm.objects(TASKLIST_SCHEMA).filtered('status=""')
+                    let allTaskList = realm.objects(TASKLIST_SCHEMA).filtered('status="" AND name="'+ module_name +'"')
                     resolve(allTaskList)
                 })
             }
@@ -171,7 +245,7 @@ export const queryAllCompletedTask = () => new Promise((resolve, reject) => {
                 })
             }
         ).catch((error) => reject(error))
-        
+
 })
 
 export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject) => {
@@ -184,21 +258,21 @@ export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject
                 })
             }
         ).catch((error) => reject(error))
-        
+
 })
 
 export const queryCompletedTask = taskId => new Promise((resolve, reject) => {
     console.log('inn')
     Realm.open(databaseOption)
-    .then(
-        realm => {
-            realm.write(() => {
-                let taskdetail = realm.objects(TASK_DONE_SCHEMA).filtered('id="'+ taskId+'"')
-                console.log(taskdetail);
-                resolve(taskdetail)
-            })
-        }
-    ).catch((error) => reject(error))
+        .then(
+            realm => {
+                realm.write(() => {
+                    let taskdetail = realm.objects(TASK_DONE_SCHEMA).filtered('id="' + taskId + '"')
+                    console.log(taskdetail);
+                    resolve(taskdetail)
+                })
+            }
+        ).catch((error) => reject(error))
 })
 
 export const sewaccCompletedFilter = sewacc => new Promise((resolve, reject) => {
@@ -210,7 +284,7 @@ export const sewaccCompletedFilter = sewacc => new Promise((resolve, reject) => 
                     resolve(filteredCompletedSewacc)
                 })
             }
-        ).catch((error)=> reject(error))
+        ).catch((error) => reject(error))
 })
 
 export const updateTaskDone = taskList => new Promise((resolve, reject) => {

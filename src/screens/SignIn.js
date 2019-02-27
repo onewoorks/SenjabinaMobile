@@ -25,10 +25,10 @@ export default class SignInScreen extends Component {
   render() {
     return (
       <ImageBackground source={require('../assets/images/loginBg.jpg')} style={{ width: '100%', height: '100%' }}>
-        <View style={{ alignItems: 'stretch', flexDirection: 'column-reverse', flex: 1, alignContent: 'center' }}>
-        <TouchableOpacity  onPress={this._verifyUser} style={[theme.fullBlock,{marginTop:20}]}>
-          <Text style={theme.fullBlockText}>{this.state.buttonLoginLabel}</Text>
-        </TouchableOpacity>
+        <View style={{ alignItems: 'stretch', flexDirection: 'column-reverse', flex: 1, alignContent: 'center', alignItems:'center' }}>
+          <TouchableOpacity onPress={this._verifyUser} style={[theme.fullBlock, { marginTop: 20 }]}>
+            <Text style={theme.fullBlockText}>{this.state.buttonLoginLabel}</Text>
+          </TouchableOpacity>
           <Input
             placeholder='Registered Mobile No'
             keyboardType='number-pad'
@@ -44,8 +44,8 @@ export default class SignInScreen extends Component {
             onChangeText={(identificationNo) => this.setState({ identificationNo })}
             value={this.state.identificationNo}
           />
-
         </View>
+
       </ImageBackground>
     );
   }
@@ -75,7 +75,7 @@ export default class SignInScreen extends Component {
       .then((responseJson) => {
         if (JSON.stringify(responseJson.response) === 'false') {
           this.setState({
-            buttonLoginLabel:"LOGIN ERROR"
+            buttonLoginLabel: "LOGIN ERROR"
           })
         } else {
           AsyncStorage.setItem('userToken', JSON.stringify(responseJson.response))

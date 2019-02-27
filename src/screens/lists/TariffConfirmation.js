@@ -4,11 +4,15 @@ import theme from '../../assets/theme'
 
 export default class TariffConfirmationScreen extends Component{
     static navigationOptions = {
-        title: 'Tariff Confirmation'
+        title: 'Tariff Confirmation',
+        headerStyle: {
+            backgroundColor: '#eb2f06'
+        },
+        headerTintColor: 'white'
     };
     render(){
         return(
-            <View style={theme.container}>
+            <View style={theme.tariffContainer}>
                 <Text>Tariff Confirmation Screen</Text>
             </View>
         )

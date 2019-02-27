@@ -1,5 +1,48 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
+export const ThemeBase = StyleSheet.create({
+    bottomLine: {
+        borderBottomWidth:1,
+        borderBottomColor: '#dadada',
+        width: Dimensions.get('window').width
+    },
+    flatList: {
+        width: Dimensions.get('window').width,
+        flex:1
+    }
+})
+
+export const NonCommercial = StyleSheet.create({
+    formViewArea: {
+        backgroundColor: '#60a3bc',
+        borderBottomWidth: 1, 
+        borderBottomColor: '#dadada',
+    },
+    pickedButton: {
+        flex:1,
+        justifyContent:'center', alignItems:'center',
+        height:50
+    },
+    pickedButtonSelected: {
+        backgroundColor: '#60a3bc',
+    },
+    pickedButtonNormal: {
+        borderWidth:1,
+        borderColor: '#60a3bc'
+    },
+    pickedButtonSelectedText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    fullBlock: {
+        paddingTop:20,
+        paddingBottom: 20,
+        backgroundColor: '#0a3d62',
+        alignItems: 'center',
+        width:Dimensions.get('window').width
+    }
+})
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -8,6 +51,12 @@ export default StyleSheet.create({
     },
     width100: {
         width: Dimensions.get('window').width
+    },
+    infoLabel: {
+        fontSize:14,
+        fontStyle:'italic',
+        textAlign:'center',
+        paddingBottom: 10
     },
     profileHeader: {
         height: 280,
@@ -66,7 +115,7 @@ export default StyleSheet.create({
     fullBlock: {
         paddingTop:20,
         paddingBottom: 20,
-        backgroundColor: '#1e3799',
+        backgroundColor: '#e58e26',
         alignItems: 'center',
         width:Dimensions.get('window').width
     },
@@ -83,8 +132,55 @@ export default StyleSheet.create({
       fontWeight:'bold'
     },
     homeTaskText: {
+        textAlign:'center',
         fontSize: 16
+    },
+    pickedButton: {
+        flex:1,
+        justifyContent:'center', alignItems:'center',
+        height:50
+    },
+    pickedButtonLabel: {
+        fontSize:26,
+    },
+    pickedButtonSelected: {
+        backgroundColor: '#fa983a',
+    },
+    pickedButtonNormal: {
+        borderWidth:1,
+        borderColor: '#fa983a'
+    },
+    pickedButtonSelectedText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    inputLabel: {
+        fontSize:18,
+        marginBottom: 4,
+        marginTop: 10
+    },
+    textInput: {
+        borderBottomColor: '#666',
+        borderBottomWidth: 1,
+        marginTop:-10,
+        fontSize:24
+    },
+    tariffContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#e55039'
+    },
+    domesticContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#1e3799'
+    },
+    nonDomesticContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#60a3bc'      
     }
-
-
 })

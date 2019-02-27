@@ -9,8 +9,9 @@ import TaskScreen from './src/screens/Task'
 import VacantPremiseScreen from './src/screens/lists/VacantPremise'
 import TariffConfirmationScreen from './src/screens/lists/TariffConfirmation'
 import DomesticScreen from './src/screens/lists/Domestic'
-import NonDomesticScreen from './src/screens/lists/NonDomestic'
-import VacantPremiseFormScreen from './src/screens/lists/VacantPremiseForm'
+import NonCommercialScreen from './src/screens/lists/NonCommercial'
+import NonCommercialFormScreen from './src/screens/forms/NonCommercial'
+import VacantPremiseFormScreen from './src/screens/forms/VacantPremiseForm'
 import VacantPremiseCompletedScreen from './src/screens/lists/VacantPremiseComplete'
 import VacantPremiseCompletedFormScreen from './src/screens/completed/VacantPremiseCompletedForm'
 import UploadingScreen from './src/screens/Uploading'
@@ -24,7 +25,8 @@ const AppStack = createStackNavigator({
   VacantPremise: VacantPremiseScreen,
   TariffConfirmation: TariffConfirmationScreen,
   Domestic: DomesticScreen,
-  NonDomestic: NonDomesticScreen,
+  NonCommercial: NonCommercialScreen,
+  NonCommercialForm: NonCommercialFormScreen,
   VacantPremiseForm: VacantPremiseFormScreen,
   VacantPremiseComplete: VacantPremiseCompletedScreen,
   VacantPremiseCompleteForm: VacantPremiseCompletedFormScreen,
@@ -42,7 +44,7 @@ const Root = createAppContainer(createSwitchNavigator(
     Auth: AuthStack,
   },
   {
-    initialRouteName: 'AuthLoading',
+    initialRouteName: 'AuthLoading',   
   }
 ));
 

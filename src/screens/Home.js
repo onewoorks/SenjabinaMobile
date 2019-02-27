@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { AsyncStorage, View, Text, TouchableOpacity, ImageBackground } from 'react-native'
-import theme from '../assets/theme'
+import {
+  AsyncStorage, View, Text, TouchableOpacity, ImageBackground, Alert, Dimensions
+} from 'react-native'
+import theme, { ThemeBase } from '../assets/theme'
 import Env from '../assets/config'
 import {
   queryAllTaskList,
@@ -8,9 +10,15 @@ import {
   deletAllTaskList,
   queryAllCompletedTask,
   deletAllTaskCompletedTask,
-  taskUploaded
+  taskUploaded,
+  InsertNewLog,
+  GetLastDataLog,
+  DeleteAllLogs,
+  QueryTaskList
 } from '../database/allSchemas'
+import { TodayDate, FormatDate } from '../components/baseformat'
 import Icon from 'react-native-vector-icons/Ionicons';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -37,7 +45,10 @@ export default class HomeScreen extends Component {
       totalNewTaskFetch: 0,
       totalUploaded: 0,
       userInfo: null,
-      buttonLoadServerLabel: 'LOAD TASK FROM SERVER'
+      buttonLoadServerLabel: 'LOAD TASK FROM SERVER',
+      lastDownloaded: 'none',
+      lastUploaded: 'none',
+      lastPerformed: 'none'
     }
     this.willFocus = this.props.navigation.addListener('willFocus', () => {
       this._loadTask()
@@ -54,35 +65,45 @@ export default class HomeScreen extends Component {
           <ImageBackground source={require('../assets/images/loginBg.jpg')} style={{ width: '100%', height: 280 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>{(this.state.userInfo) ? this.state.userInfo.info.full_name : ''}</Text>
+              <Text style={{ fontSize:13, fontStyle:'italic', color:'#fff'}}>Version 1.0.1</Text>
             </View>
           </ImageBackground>
         </View>
 
 
-        <View style={{ flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'space-around' }}>
-          <View style={{}}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Task')}>
+        <View style={[theme.menuContainer]}>
+          <View style={ThemeBase.bottomLine}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Task',{
+              form:'new', title:'New'
+            })}>
               <Text style={theme.homeNumber}>{this.state.totalTask}</Text>
               <Text style={theme.homeTaskText}>TASK ASSIGNED</Text>
+              <Text style={theme.infoLabel}>Last task downloaded : {this.state.lastDownloaded}</Text>
             </TouchableOpacity>
           </View>
-          <View >
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('VacantPremiseComplete')}>
+          <View style={ThemeBase.bottomLine}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Task', {
+              form: 'completed',
+              title: 'Completed'
+            })}>
               <Text style={theme.homeNumber}>{this.state.totalCompletedTask}</Text>
               <Text style={theme.homeTaskText}>TASK COMPLETED</Text>
+              <Text style={theme.infoLabel}>Last task performed : {this.state.lastPerformed}</Text>
             </TouchableOpacity>
           </View>
 
-          <View >
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('VacantPremiseComplete')}>
+          <View style={ThemeBase.bottomLine}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Task',{
+              form: 'uploaded',
+              title:'Uploaded'
+            })}>
               <Text style={theme.homeNumber}>{this.state.totalUploaded}</Text>
               <Text style={theme.homeTaskText}>TOTAL UPLOADED</Text>
+              <Text style={theme.infoLabel}> Last uploaded to server: {this.state.lastUploaded} </Text>
             </TouchableOpacity>
           </View>
 
         </View>
-
-
 
         <View style={{
           flexDirection: 'row',
@@ -110,54 +131,81 @@ export default class HomeScreen extends Component {
   }
 
   _deleteAllTask = () => {
+    Alert.alert("Data has been cleared!")
+    DeleteAllLogs()
     deletAllTaskList().then(() => {
       this._loadTask();
     })
     deletAllTaskCompletedTask().then(() => {
       this._loadTask();
     })
+    ImagePicker.clean().then(() => {
+      console.log('removed all tmp images from tmp directory');
+    }).catch(e => {
+      alert(e);
+    });
+    this.setState({
+      lastDownloaded: 'none',
+      lastUploaded: 'none',
+      lastPerformed: 'none'
+    })
   }
 
   _fetchTask = async () => {
     let user = await AsyncStorage.getItem('userToken')
+    Alert.alert("Data has been fetched!")
     let userInfo = JSON.parse(user)
     this.setState({
-      buttonLoadServerLabel: 'DOWNLOAD INFORMATION'
+      buttonLoadServerLabel: 'DOWNLOAD INFORMATION',
+      userInfo: userInfo
     })
     fetch(Env.BASE_URL + 'task/my-task?id=' + userInfo.info.id)
       .then((response) => response.json())
       .then((responseJson) => {
-        let totalData = Object.keys(responseJson.response).length
         this.setState({
-          totalTask: totalData,
-          vacantPremiseTask: responseJson.response
+          totalTask: responseJson.response.total_task,
+          vacantPremiseTask: responseJson.response.vacant_premises,
+          nonCommercialTask: responseJson.response.non_commercial,
+          domesticTask: responseJson.response.domestic,
+          tariffConfirmationTask: responseJson.response.tariff_confirmation
         }, function () {
-          this.state.vacantPremiseTask.forEach((value, key) => {
-            let taskData = {
-              name: 'vacant_premise',
-              seq_id: value.seq_id,
-              taskdetail: JSON.stringify(value),
-              status: '',
-              perform_datetime: '',
-              perform_staff: userInfo.info.id
-            }
-            insertNewTaskList(taskData)
-            this.setState({
-              buttonLoadServerLabel: 'COMPLETED'
-            })
-          });
+          this.__VacantPremises(this.state.vacantPremiseTask)
+          this.__NonCommercial(this.state.nonCommercialTask)
+          this.__Domestic(this.state.domesticTask)
+          this.__TariffConfirmation(this.state.tariffConfirmationTask)
         });
 
       })
       .catch((error) => {
         console.error(error);
       });
+
+    let log = {
+      key_name: 'task_downloaded',
+      value: TodayDate()
+    }
+    InsertNewLog(log)
+    this._retrieveData()
+  }
+
+  _checkTaskExist = async (fetchTaskData) => {
+    let exist = await QueryTaskList(fetchTaskData)
+    if (!exist) {
+      insertNewTaskList(fetchTaskData)
+    }
+
   }
 
   _retrieveData = async () => {
-    let User = await AsyncStorage.getItem('userToken');
+    let User = await AsyncStorage.getItem('userToken')
+    let downloadLog = await GetLastDataLog('task_downloaded')
+    let uploadLog = await GetLastDataLog('task_uploaded')
+    let performLog = await GetLastDataLog('task_completed')
     this.setState({
-      userInfo: JSON.parse(User)
+      userInfo: JSON.parse(User),
+      lastDownloaded: (downloadLog) ? FormatDate(downloadLog.value) : this.state.lastDownloaded,
+      lastUploaded: (uploadLog) ? FormatDate(uploadLog.value) : this.state.lastUploaded,
+      lastPerformed: (performLog) ? FormatDate(performLog.value) : this.state.performLog,
     })
   };
 
@@ -168,6 +216,7 @@ export default class HomeScreen extends Component {
   }
 
   _loadTask = () => {
+    this._retrieveData()
     queryAllTaskList()
       .then((taskList) => {
         this.setState({
@@ -202,4 +251,43 @@ export default class HomeScreen extends Component {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
+
+  __VacantPremises = (vacant_premises_task) => {
+    vacant_premises_task.forEach((value, key) => {
+            let taskData = {
+              name: 'vacant_premise',
+              seq_id: value.seq_id,
+              tab: value.la_name,
+              taskdetail: JSON.stringify(value),
+              status: '',
+              perform_datetime: '',
+              perform_staff: this.state.userInfo.info.id
+            }
+            this._checkTaskExist(taskData)
+          })
+  }
+
+  __NonCommercial = (non_commercial_task) => {
+    // console.log(non_commercial_task)
+    non_commercial_task.forEach((value, key) => {
+            let taskData = {
+              name: 'non_commercial',
+              seq_id: value.seq_id,
+              tab: value.tabs_name,
+              taskdetail: value.upload_content,
+              status: '',
+              perform_datetime: '',
+              perform_staff: this.state.userInfo.info.id
+            }
+            this._checkTaskExist(taskData)
+          })
+  }
+
+  __Domestic = (domestic_task) => {
+    console.log(domestic_task)
+  }
+
+  __TariffConfirmation = (tariff_confirmation_task)=> {
+    console.log(tariff_confirmation_task)
+  }
 }

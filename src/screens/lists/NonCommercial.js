@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, FlatList } from 'react-native'
-import theme from '../../assets/theme'
+import theme, { ThemeBase } from '../../assets/theme'
 import {
     queryAllTaskListOpen,
     sewaccFilter,
@@ -10,16 +10,17 @@ import {
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default class VacantPremiseScreen extends Component {
+export default class NonCommercial extends Component {
     static navigationOptions = ({ navigation }) => {
         const state = navigation
         switch (state.state.params.form) {
             case 'completed':
                 return ({
-                    title: 'List of Vacant Premises',
+                    title: 'List of Non Commercial',
                     headerStyle: {
-                        backgroundColor: '#fa983a'
+                        backgroundColor: '#3c6382'
                     },
+                    headerTintColor: 'white',
                     headerRight: (
                         <Icon
                             name="md-cloud-upload"
@@ -31,10 +32,11 @@ export default class VacantPremiseScreen extends Component {
                 break;
             default:
                 return ({
-                    title: 'List of Vacant Premises',
+                    title: 'List of Non Commercial',
                     headerStyle: {
-                        backgroundColor: '#fa983a'
-                    }
+                        backgroundColor: '#3c6382'
+                    },
+                    headerTintColor: 'white'
                 })
                 break;
         }
@@ -78,7 +80,7 @@ export default class VacantPremiseScreen extends Component {
     }
 
     _openTask = () => {
-        queryAllTaskListOpen('vacant_premise').then((taskList) => {
+        queryAllTaskListOpen('non_commercial').then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -130,7 +132,7 @@ export default class VacantPremiseScreen extends Component {
 
                 </View>
                 <FlatList
-                    style={{ flex: 1 }}
+                    style={ThemeBase.flatList}
                     data={this.state.taskList}
                     extraData={this.state}
                     keyExtractor={item => item.id.toString()}
@@ -138,17 +140,25 @@ export default class VacantPremiseScreen extends Component {
                         let taskdetail = JSON.parse(item.taskdetail)
                         return (
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('VacantPremiseForm', {
+                                onPress={() => this.props.navigation.navigate('NonCommercialForm', {
                                     data: item,
                                     id: item.id,
-                                    seq_id: taskdetail.seq_id,
-                                    title: taskdetail.sewacc,
-                                    form: this.state.listing
+                                    seq_id: taskdetail.id,
+                                    title: taskdetail.san,
+                                    form: this.state.listing,
+                                    tab: taskdetail.sheet_code
                                 })}>
                                 <View style={{ flex: 1, borderBottomWidth: 0.5, borderBottomColor: '#dadada', padding: 10 }}>
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>ID: {taskdetail.seq_id} | SEWACC: {taskdetail.sewacc}</Text>
-                                    <Text style={{ fontStyle: 'italic' }}>{taskdetail.la_name}</Text>
-                                    <Text style={{ fontStyle: 'italic' }}>{taskdetail.property_address}</Text>
+                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>ID: {taskdetail.id} | SAN: {taskdetail.san}</Text>
+                                    <Text style={{ fontStyle: 'italic' }}>{taskdetail.la_name}, {taskdetail.state} </Text>
+                                    <Text style={{ fontStyle: 'italic' }}>
+                                        {taskdetail.prop_address_1 +
+                                            ', ' + taskdetail.prop_address_2 +
+                                            ', ' + taskdetail.prop_address_3 +
+                                            ', ' + taskdetail.prop_address_4 +
+                                            ', ' + taskdetail.prop_address_5
+                                        }
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
                         )

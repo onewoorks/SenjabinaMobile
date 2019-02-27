@@ -2,6 +2,7 @@
 var _Environments = {
     production: {
         BASE_URL: 'https://senjabina.onewoorks-solutions.com/api/',
+        ASSET_URL: 'https://senjabina.onewoorks-solutions.com/images/',
         API_KEY: ''
     },
     staging: {
@@ -10,6 +11,7 @@ var _Environments = {
     },
     development: {
         BASE_URL: 'http://10.0.2.2/senjabina/api/', 
+        ASSET_URL: 'http://10.0.2.2/senjabina/images/',
         API_KEY: ''
     },
 }
