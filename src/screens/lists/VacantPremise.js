@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, FlatList } from 'react-native'
-import theme from '../../assets/theme'
+import theme, {ThemeBase} from '../../assets/theme'
 import {
     queryAllTaskListOpen,
     sewaccFilter,
     sewaccCompletedFilter,
-    queryNotUploadYetCompletedTask
+    queryNotUploadYetCompletedTask,
+    queryUploadedCompletedTask,
+    queryTaskDoneStatus
 } from '../../database/allSchemas'
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { VACANT_PREMISE, UPLOADED } from '../../assets/constant'
 
 export default class VacantPremiseScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         const state = navigation
         switch (state.state.params.form) {
-            case 'completed':
+            case 'uploaded':
                 return ({
                     title: 'List of Vacant Premises',
                     headerStyle: {
@@ -28,7 +31,7 @@ export default class VacantPremiseScreen extends Component {
                             style={{ marginRight: 10, color: '#fff' }} />
                     )
                 })
-                break;
+            case 'completed':
             default:
                 return ({
                     title: 'List of Vacant Premises',
@@ -56,7 +59,10 @@ export default class VacantPremiseScreen extends Component {
     }
 
     _handleUpload = () => {
-        this.props.navigation.navigate('Uploading')
+        this.props.navigation.navigate('Uploading', {
+            form: this.props.navigation.getParam('form'),
+            module_name: VACANT_PREMISE
+        })
     }
 
     _updateSearch = search => {
@@ -70,6 +76,7 @@ export default class VacantPremiseScreen extends Component {
                 this._openCompleted()
                 break;
             case 'uploaded':
+                this._openUploaded()
                 break;
             case 'new':
                 this._openTask()
@@ -101,8 +108,21 @@ export default class VacantPremiseScreen extends Component {
         })
     }
 
+    _openUploaded = () => {
+        queryTaskDoneStatus(VACANT_PREMISE, UPLOADED).then((taskList) => {
+            this.setState({
+                taskList: taskList
+            })
+        }).catch((error) => {
+            this.setState({
+                taskList: {}
+            })
+        })
+    }
+
     componentDidMount() {
         switch (this.state.listing) {
+            case 'uploaded':
             case 'completed':
                 this.props.navigation.setParams({ handleUpload: this._handleUpload })
                 break;
@@ -130,7 +150,7 @@ export default class VacantPremiseScreen extends Component {
 
                 </View>
                 <FlatList
-                    style={{ flex: 1 }}
+                    style={[{ flex: 1}, ThemeBase.flatList]}
                     data={this.state.taskList}
                     extraData={this.state}
                     keyExtractor={item => item.id.toString()}
@@ -168,7 +188,7 @@ export default class VacantPremiseScreen extends Component {
                 })
                 break;
             case 'new':
-                sewaccFilter(sewaccInput).then((sewaccFilter) => {
+                sewaccFilter(sewaccInput,VACANT_PREMISE).then((sewaccFilter) => {
                     this.setState({
                         taskList: sewaccFilter
                     })

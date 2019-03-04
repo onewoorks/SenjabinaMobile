@@ -7,6 +7,7 @@ import theme, { NonCommercial } from '../../assets/theme'
 import ImagePicker from 'react-native-image-crop-picker';
 import { insertNewTaskDone, updateTaskList, updateTaskDone, InsertNewLog } from '../../database/allSchemas';
 import { TodayDate } from '../../components/baseformat'
+import { UPLOADED, COMPLETED } from '../../assets/constant';
 
 const w = ((Dimensions.get('window').width - 7) / 3)
 
@@ -39,6 +40,7 @@ export default class NonCommercialFormScreen extends Component {
 
     render() {
         let task = JSON.parse(this.state.taskData.taskdetail)
+        console.log(task)
         return (
             <ScrollView>
                 <View style={NonCommercial.formViewArea}>
@@ -749,7 +751,8 @@ export default class NonCommercialFormScreen extends Component {
                     }
                 })
                 break;
-            case 'completed':
+            case UPLOADED:
+            case COMPLETED:
                 let taskData = JSON.parse(this.state.taskData.taskperform)
                 this.setState({
                     image: taskData.images,

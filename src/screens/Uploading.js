@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, Platform, TouchableOpacity, Image } from 'react-native'
 import theme from '../assets/theme'
-import { queryAllCompletedTask, updateTaskDone, InsertNewLog } from '../database/allSchemas'
+import { queryAllCompletedTask, queryTaskDoneStatus, queryUploadedTask, updateTaskDone, InsertNewLog } from '../database/allSchemas'
 import Env from '../assets/config'
 import futch from '../components/api'
-import { TodayDate } from '../components/baseformat'
+import { TodayDate } from '../components/baseformat' 
+import { UPLOADED } from '../assets/constant';
 
 export default class UploadingScreen extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -59,17 +60,36 @@ export default class UploadingScreen extends Component {
     }
 
     async componentDidMount() {
-        let total = await queryAllCompletedTask().then((completedTask) => {
-            let count = 0
-            Object.keys(completedTask).forEach((value, key) => {
-                count = count + 1
-                this._uploadData(completedTask[value])
-            })
-            return count
-        })
-        this.setState({
-            total_task_to_upload: total
-        })
+        let screen_from = this.props.navigation.getParam('form')
+        let module_name = this.props.navigation.getParam('module_name')
+        switch (screen_from) {
+            case UPLOADED:
+                let totalUploaded = await queryTaskDoneStatus(module_name,UPLOADED).then((uploadedTask) => {
+                    let count = 0
+                    Object.keys(uploadedTask).forEach((value, key) => {
+                        count = count + 1
+                        this._uploadData(uploadedTask[value])
+                    })
+                    return count
+                })
+                this.setState({
+                    total_task_to_upload: totalUploaded
+                })
+                break;
+            case 'completed':
+                let total = await queryAllCompletedTask().then((completedTask) => {
+                    let count = 0
+                    Object.keys(completedTask).forEach((value, key) => {
+                        count = count + 1
+                        this._uploadData(completedTask[value])
+                    })
+                    return count
+                })
+                this.setState({
+                    total_task_to_upload: total
+                })
+                break;
+        }
     }
 
     _uploadData = data => {
@@ -77,6 +97,7 @@ export default class UploadingScreen extends Component {
         let taskPerform = JSON.parse(data.taskperform)
         let taskDetail = JSON.parse(data.taskdetail)
         let images = taskPerform.images
+        let index_no = ( typeof taskDetail.sewacc !== 'undefined') ? taskDetail.sewacc : taskDetail.san
 
         form.append('task_detail', `${data.taskdetail}`)
         form.append('task_perform', `${data.taskperform}`)
@@ -86,13 +107,11 @@ export default class UploadingScreen extends Component {
             form.append(`image_${i}`, {
                 uri: Platform.OS === "android" ? value.path : value.path.replace("file://", ""),
                 type: value.mime,
-                name: `${data.name}_${taskDetail.sewacc}_${i}.jpg`
+                name: `${data.name}_${index_no}_${i}.jpg`
             });
         })
 
         if (data.name != '') {
-            console.log(form)
-            // console.log(`${Env.BASE_URL}task/${data.name}`)
             futch(`${Env.BASE_URL}task/${data.name}`, {
                 method: 'post',
                 body: form
@@ -110,8 +129,13 @@ export default class UploadingScreen extends Component {
                         status: 'uploaded',
                     }
                     // console.log(taskDone)
-                    updateTaskDone(taskDone)
+                    if (this.props.navigation.getParam('form') != 'uploaded') {
+                        updateTaskDone(taskDone)
+                    } else {
+                        console.log('reupload')
+                    }
                 }
+
 
                 if (this.state.total_task_to_upload == this.state.total_upload_completed) {
                     this.setState({
@@ -127,27 +151,27 @@ export default class UploadingScreen extends Component {
             // ) 
 
             // if (data.name != '') {
-                // console.log(`${Env.BASE_URL}task/${data.name}`)
-                // fetch(`${Env.BASE_URL}task/${data.name}`, {
-                //     method: 'post',
-                //     body: form
-                // })
-                //     .then((response) => {
-                //         console.log(response)
-                //         return response.json()
-                //     })
-                //     .then((responseJson) => {
-                //         let taskDone = {
-                //             id: parseInt(data.id),
-                //             taskperform: data.taskperform,
-                //             status:'uploaded',
-                //         }
-                //         console.log(taskDone)
-                //         // updateTaskDone(taskDone)
-                //     })
-                //     .catch((error) => {
-                //         console.error(error);
-                //     });
+            // console.log(`${Env.BASE_URL}task/${data.name}`)
+            // fetch(`${Env.BASE_URL}task/${data.name}`, {
+            //     method: 'post',
+            //     body: form
+            // })
+            //     .then((response) => {
+            //         console.log(response)
+            //         return response.json()
+            //     })
+            //     .then((responseJson) => {
+            //         let taskDone = {
+            //             id: parseInt(data.id),
+            //             taskperform: data.taskperform,
+            //             status:'uploaded',
+            //         }
+            //         console.log(taskDone)
+            //         // updateTaskDone(taskDone)
+            //     })
+            //     .catch((error) => {
+            //         console.error(error);
+            //     });
             // }
 
 

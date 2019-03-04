@@ -5,16 +5,18 @@ import {
     queryAllTaskListOpen,
     sewaccFilter,
     sewaccCompletedFilter,
-    queryNotUploadYetCompletedTask
+    queryNotUploadYetCompletedTask,
+    queryTaskDoneStatus
 } from '../../database/allSchemas'
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { NON_COMMERCIAL, UPLOADED } from '../../assets/constant'
 
 export default class NonCommercial extends Component {
     static navigationOptions = ({ navigation }) => {
         const state = navigation
         switch (state.state.params.form) {
-            case 'completed':
+            case 'uploaded':
                 return ({
                     title: 'List of Non Commercial',
                     headerStyle: {
@@ -58,7 +60,10 @@ export default class NonCommercial extends Component {
     }
 
     _handleUpload = () => {
-        this.props.navigation.navigate('Uploading')
+        this.props.navigation.navigate('Uploading',{
+            form:this.props.navigation.getParam('form'),
+            module_name: NON_COMMERCIAL
+        })
     }
 
     _updateSearch = search => {
@@ -72,6 +77,7 @@ export default class NonCommercial extends Component {
                 this._openCompleted()
                 break;
             case 'uploaded':
+                this._openUploaded()
                 break;
             case 'new':
                 this._openTask()
@@ -80,7 +86,7 @@ export default class NonCommercial extends Component {
     }
 
     _openTask = () => {
-        queryAllTaskListOpen('non_commercial').then((taskList) => {
+        queryAllTaskListOpen(NON_COMMERCIAL).then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -103,8 +109,21 @@ export default class NonCommercial extends Component {
         })
     }
 
+    _openUploaded = () => {
+        queryTaskDoneStatus(NON_COMMERCIAL,UPLOADED).then((taskList) => {
+            this.setState({
+                taskList: taskList
+            })
+        }).catch((error) => {
+            this.setState({
+                taskList: {}
+            })
+        })
+    }
+
     componentDidMount() {
         switch (this.state.listing) {
+            case 'uploaded':
             case 'completed':
                 this.props.navigation.setParams({ handleUpload: this._handleUpload })
                 break;
@@ -170,6 +189,7 @@ export default class NonCommercial extends Component {
 
     _querySewacc = (sewaccInput) => {
         switch (this.state.listing) {
+            case 'uploaded':
             case 'completed':
                 sewaccCompletedFilter(sewaccInput).then((sewaccFilter) => {
                     this.setState({
@@ -178,7 +198,7 @@ export default class NonCommercial extends Component {
                 })
                 break;
             case 'new':
-                sewaccFilter(sewaccInput).then((sewaccFilter) => {
+                sewaccFilter(sewaccInput,NON_COMMERCIAL).then((sewaccFilter) => {
                     this.setState({
                         taskList: sewaccFilter
                     })

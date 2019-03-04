@@ -150,7 +150,7 @@ export const QueryTaskList = queryInfo => new Promise((resolve, reject) => {
                 realm.write(() => {
                     let result = realm.objects(TASKLIST_SCHEMA)
                         .filtered(
-                            'seq_id="' + queryInfo.seq_id + '" AND name="' + queryInfo.name + '" AND perform_staff="' + queryInfo.perform_staff + '" AND tab="'+ queryInfo.tab+'"')
+                            'seq_id="' + queryInfo.seq_id + '" AND name="' + queryInfo.name + '" AND perform_staff="' + queryInfo.perform_staff + '" AND tab="' + queryInfo.tab + '"')
                     let exist = (result.length > 0) ? true : false
                     resolve(exist)
                 })
@@ -173,12 +173,12 @@ export const updateTaskList = taskList => new Promise((resolve, reject) => {
         ).catch((error) => reject(error))
 })
 
-export const sewaccFilter = sewacc => new Promise((resolve, reject) => {
+export const sewaccFilter = (sewacc, module_name) => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
         .then(
             realm => {
                 realm.write(() => {
-                    let filteredSewacc = realm.objects(TASKLIST_SCHEMA).filtered('seq_id="' + sewacc + '" AND status = ""')
+                    let filteredSewacc = realm.objects(TASKLIST_SCHEMA).filtered('seq_id="' + sewacc + '" AND status = "" AND name="'+ module_name +'"')
                     resolve(filteredSewacc)
                 })
             }
@@ -228,12 +228,25 @@ export const queryAllTaskListOpen = (module_name) => new Promise((resolve, rejec
         .then(
             realm => {
                 realm.write(() => {
-                    let allTaskList = realm.objects(TASKLIST_SCHEMA).filtered('status="" AND name="'+ module_name +'"')
+                    let allTaskList = realm.objects(TASKLIST_SCHEMA).filtered('status="" AND name="' + module_name + '"')
                     resolve(allTaskList)
                 })
             }
         ).catch((error) => reject(error))
 })
+
+export const queryAllTaskListUploaded = (module_name) => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskList = realm.objects(TASK_DONE_SCHEMA).filtered('status="uploaded" AND name="' + module_name + '"')
+                    resolve(allTaskList)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
 
 export const queryAllCompletedTask = () => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
@@ -245,7 +258,19 @@ export const queryAllCompletedTask = () => new Promise((resolve, reject) => {
                 })
             }
         ).catch((error) => reject(error))
+})
 
+
+export const queryTaskDoneStatus = (module_name, current_status) => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status="' + current_status + '" AND name="' + module_name + '"')
+                    resolve(allTaskDone)
+                })
+            }
+        ).catch((error) => reject(error))
 })
 
 export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject) => {
@@ -258,7 +283,30 @@ export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject
                 })
             }
         ).catch((error) => reject(error))
+})
 
+export const queryCompletedTaskNotUpload = (module_name) => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status!="uploaded" AND name="' + module_name + '"')
+                    resolve(allTaskDone)
+                })
+            }
+        ).catch((error) => reject(error))
+})
+
+export const queryUploadedCompletedTask = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOption)
+        .then(
+            realm => {
+                realm.write(() => {
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status="uploaded"')
+                    resolve(allTaskDone)
+                })
+            }
+        ).catch((error) => reject(error))
 })
 
 export const queryCompletedTask = taskId => new Promise((resolve, reject) => {
@@ -288,7 +336,6 @@ export const sewaccCompletedFilter = sewacc => new Promise((resolve, reject) => 
 })
 
 export const updateTaskDone = taskList => new Promise((resolve, reject) => {
-    console.log(taskList)
     Realm.open(databaseOption)
         .then(
             realm => {

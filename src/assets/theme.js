@@ -12,6 +12,14 @@ export const ThemeBase = StyleSheet.create({
     }
 })
 
+export const Menu = StyleSheet.create({
+    numbers: {
+        fontSize: 34,
+        color: '#fad390',
+        fontWeight:'bold'
+    }
+})
+
 export const NonCommercial = StyleSheet.create({
     formViewArea: {
         backgroundColor: '#60a3bc',

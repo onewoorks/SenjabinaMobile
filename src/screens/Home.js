@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  AsyncStorage, View, Text, TouchableOpacity, ImageBackground, Alert, Dimensions
+  AsyncStorage, View, Text, TouchableOpacity, ImageBackground, Alert, Dimensions, ScrollView
 } from 'react-native'
 import theme, { ThemeBase } from '../assets/theme'
 import Env from '../assets/config'
@@ -15,10 +15,9 @@ import {
   GetLastDataLog,
   DeleteAllLogs,
   QueryTaskList
-} from '../database/allSchemas'
+} from '../database/allSchemas' 
 import { TodayDate, FormatDate } from '../components/baseformat'
 import Icon from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-crop-picker';
 
 export default class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,6 +41,7 @@ export default class HomeScreen extends Component {
     this.state = {
       totalTask: 0,
       totalCompletedTask: 0,
+      totalOpenTask: 0,
       totalNewTaskFetch: 0,
       totalUploaded: 0,
       userInfo: null,
@@ -71,14 +71,14 @@ export default class HomeScreen extends Component {
         </View>
 
 
-        <View style={[theme.menuContainer]}>
+        <ScrollView >
           <View style={ThemeBase.bottomLine}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Task',{
               form:'new', title:'New'
             })}>
-              <Text style={theme.homeNumber}>{this.state.totalTask}</Text>
-              <Text style={theme.homeTaskText}>TASK ASSIGNED</Text>
-              <Text style={theme.infoLabel}>Last task downloaded : {this.state.lastDownloaded}</Text>
+              <Text style={theme.homeNumber}>{this.state.totalOpenTask}</Text>
+              <Text style={theme.homeTaskText}>TASK ASSIGNED ({this.state.totalTask}) </Text>
+              <Text style={theme.infoLabel}>Last sync : {this.state.lastDownloaded}</Text>
             </TouchableOpacity>
           </View>
           <View style={ThemeBase.bottomLine}>
@@ -88,7 +88,7 @@ export default class HomeScreen extends Component {
             })}>
               <Text style={theme.homeNumber}>{this.state.totalCompletedTask}</Text>
               <Text style={theme.homeTaskText}>TASK COMPLETED</Text>
-              <Text style={theme.infoLabel}>Last task performed : {this.state.lastPerformed}</Text>
+              <Text style={theme.infoLabel}>Last sync : {this.state.lastPerformed}</Text>
             </TouchableOpacity>
           </View>
 
@@ -98,12 +98,12 @@ export default class HomeScreen extends Component {
               title:'Uploaded'
             })}>
               <Text style={theme.homeNumber}>{this.state.totalUploaded}</Text>
-              <Text style={theme.homeTaskText}>TOTAL UPLOADED</Text>
-              <Text style={theme.infoLabel}> Last uploaded to server: {this.state.lastUploaded} </Text>
+              <Text style={theme.homeTaskText}>TOTAL UPLOADED.</Text>
+              <Text style={theme.infoLabel}> Last sync : {this.state.lastUploaded} </Text>
             </TouchableOpacity>
           </View>
 
-        </View>
+        </ScrollView>
 
         <View style={{
           flexDirection: 'row',
@@ -132,22 +132,22 @@ export default class HomeScreen extends Component {
 
   _deleteAllTask = () => {
     Alert.alert("Data has been cleared!")
-    DeleteAllLogs()
+    // DeleteAllLogs()
     deletAllTaskList().then(() => {
       this._loadTask();
     })
-    deletAllTaskCompletedTask().then(() => {
-      this._loadTask();
-    })
-    ImagePicker.clean().then(() => {
-      console.log('removed all tmp images from tmp directory');
-    }).catch(e => {
-      alert(e);
-    });
+    // deletAllTaskCompletedTask().then(() => {
+    //   this._loadTask();
+    // })
+    // ImagePicker.clean().then(() => {
+    //   console.log('removed all tmp images from tmp directory');
+    // }).catch(e => {
+    //   alert(e);
+    // });
     this.setState({
       lastDownloaded: 'none',
-      lastUploaded: 'none',
-      lastPerformed: 'none'
+      // lastUploaded: 'none',
+      // lastPerformed: 'none'
     })
   }
 
@@ -164,6 +164,7 @@ export default class HomeScreen extends Component {
       .then((responseJson) => {
         this.setState({
           totalTask: responseJson.response.total_task,
+          totalOpenTask: responseJson.response.total_task,
           vacantPremiseTask: responseJson.response.vacant_premises,
           nonCommercialTask: responseJson.response.non_commercial,
           domesticTask: responseJson.response.domestic,
@@ -215,32 +216,35 @@ export default class HomeScreen extends Component {
     this._loadTask()
   }
 
-  _loadTask = () => {
+  _loadTask = async () => {
     this._retrieveData()
-    queryAllTaskList()
+    await queryAllTaskList()
       .then((taskList) => {
         this.setState({
-          totalTask: taskList.length
+          totalTask: taskList.length,
+          totalOpenTask: taskList.length
         })
       })
       .catch((error) => {
         console.log(error)
       })
 
-    queryAllCompletedTask()
+    await queryAllCompletedTask()
       .then((completedTask) => {
         this.setState({
-          totalCompletedTask: completedTask.length
+          totalCompletedTask: completedTask.length,
         })
       }).catch((error) => {
         console.log(error)
       })
 
-    taskUploaded().then((uploaded) => {
+    await taskUploaded().then((uploaded) => {
       this.setState({
-        totalUploaded: uploaded.length
+        totalUploaded: uploaded.length,
+        totalOpenTask: this.state.totalTask - this.state.totalCompletedTask - uploaded.length
       })
     })
+    await this.__positiveNumber()
   }
 
   _showMoreApp = () => {
@@ -268,7 +272,6 @@ export default class HomeScreen extends Component {
   }
 
   __NonCommercial = (non_commercial_task) => {
-    // console.log(non_commercial_task)
     non_commercial_task.forEach((value, key) => {
             let taskData = {
               name: 'non_commercial',
@@ -289,5 +292,16 @@ export default class HomeScreen extends Component {
 
   __TariffConfirmation = (tariff_confirmation_task)=> {
     console.log(tariff_confirmation_task)
+  }
+
+  __positiveNumber = () => {
+    let pos_number = this.state.totalOpenTask
+    let final_number = 0
+    if(pos_number > 0){
+      final_number = pos_number 
+    }
+    this.setState({
+      totalOpenTask: final_number
+    })
   }
 }

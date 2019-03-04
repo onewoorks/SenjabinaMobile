@@ -7,6 +7,7 @@ import theme from '../../assets/theme'
 import ImagePicker from 'react-native-image-crop-picker';
 import { insertNewTaskDone, updateTaskList, updateTaskDone, InsertNewLog } from '../../database/allSchemas';
 import { TodayDate } from '../../components/baseformat'
+import { VACANT_PREMISE } from '../../assets/constant';
 
 const w = ((Dimensions.get('window').width - 7) / 3)
 
@@ -257,6 +258,16 @@ export default class VacantPremiseForm extends Component {
         }
     }
 
+    _albumPicker = () => {
+        ImagePicker.openPicker({
+            width: 720,
+            height: 720,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          });
+    }
+
     _pickimage = () => {
         ImagePicker.openCamera({
             multiple: true,
@@ -278,6 +289,8 @@ export default class VacantPremiseForm extends Component {
             case 'new':
                 this._newForm()
                 break;
+            case 'uploaded':
+                this._updateForm()
             case 'completed':
                 this._updateForm()
                 break;
@@ -291,7 +304,7 @@ export default class VacantPremiseForm extends Component {
         })
         let perform_datetime = new Date().toJSON().toString().replace('T', ' ').replace('Z', '')
         let taskPerform = {
-            name: 'vacant_premise',
+            name: VACANT_PREMISE,
             seq_id: this.state.seq_id,
             taskdetail: this.state.taskData.taskdetail,
             taskperform: JSON.stringify({
@@ -356,7 +369,6 @@ export default class VacantPremiseForm extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.state)
         switch (this.state.form) {
             case 'new':
                 let task = JSON.parse(this.state.taskData.taskdetail)
@@ -365,6 +377,7 @@ export default class VacantPremiseForm extends Component {
                     tab: this.state.taskData.tab
                  })
                 break;
+            case 'uploaded':
             case 'completed':
                 let taskData = JSON.parse(this.state.taskData.taskperform)
                 this.setState({
@@ -377,13 +390,6 @@ export default class VacantPremiseForm extends Component {
                     vacant_status: taskData.vacant_status
                 })
                 break;
-            case 'uploaded':
-                break;
         }
-        // ImagePicker.clean().then(() => {
-        //     console.log('removed all tmp images from tmp directory');
-        // }).catch(e => {
-        //     alert(e);
-        // });
     }
 }
