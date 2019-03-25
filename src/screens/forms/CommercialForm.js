@@ -3,17 +3,17 @@ import {
     View, Text, ScrollView, Modal, TouchableHighlight, Alert,
     TouchableOpacity, Image, Dimensions, AsyncStorage, Picker, TextInput
 } from 'react-native'
-import theme, { ThemeModal, NonCommercial } from '../../assets/theme'
+import theme, { ThemeModal, Commercial } from '../../assets/theme'
 import ImagePicker from 'react-native-image-crop-picker';
 import { insertNewTaskDone, updateTaskList, updateTaskDone, InsertNewLog } from '../../database/allSchemas';
 import { TodayDate } from '../../components/baseformat'
-import { UPLOADED, COMPLETED } from '../../assets/constant';
+import { UPLOADED, COMPLETED, COMMERCIAL } from '../../assets/constant';
 import ImageZoom from 'react-native-image-pan-zoom'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const w = ((Dimensions.get('window').width - 7) / 3)
 
-export default class NonCommercialFormScreen extends Component {
+export default class CommercialFormScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,9 +34,9 @@ export default class NonCommercialFormScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         const { state } = navigation;
         return {
-            title: 'Domestic : ' + state.params.title,
+            title: 'Commercial : ' + state.params.title,
             headerStyle: {
-                backgroundColor: '#3c6382',
+                backgroundColor: '#4a69bd',
             },
             headerTintColor: 'white'
         };
@@ -47,7 +47,7 @@ export default class NonCommercialFormScreen extends Component {
         return (
             <ScrollView>
                 {this._renderModal()}
-                <View style={NonCommercial.formViewArea}>
+                <View style={Commercial.formViewArea}>
                     <View style={theme.formView}>
                         <Text style={theme.formViewLabel}>Owner Name : </Text>
                         <Text style={theme.formVacantText}>{task.owner_1}</Text>
@@ -90,20 +90,20 @@ export default class NonCommercialFormScreen extends Component {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.occupier == 'OWNER') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.occupier == 'OWNER') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._occupier('OWNER')}>
                                 <Text
-                                    style={(this.state.form_info.occupier == 'OWNER') ? NonCommercial.pickedButtonSelectedText : ''}>OWNER</Text>
+                                    style={(this.state.form_info.occupier == 'OWNER') ? Commercial.pickedButtonSelectedText : ''}>OWNER</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[NonCommercial.pickedButton,
-                                (this.state.form_info.occupier == 'TENANT') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal]}
+                                style={[Commercial.pickedButton,
+                                (this.state.form_info.occupier == 'TENANT') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal]}
                                 onPress={() => this._occupier('TENANT')}
                             >
                                 <Text
-                                    style={(this.state.form_info.occupier == 'TENANT') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.occupier == 'TENANT') ? Commercial.pickedButtonSelectedText : ''}
                                 >TENANT</Text>
                             </TouchableOpacity>
                         </View>
@@ -118,24 +118,24 @@ export default class NonCommercialFormScreen extends Component {
                         }}>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.owner_name_correct == 'Yes') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.owner_name_correct == 'Yes') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._ownernameCorrect('Yes')}
                             >
                                 <Text
-                                    style={(this.state.form_info.owner_name_correct == 'Yes') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.owner_name_correct == 'Yes') ? Commercial.pickedButtonSelectedText : ''}
                                 >YES</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.owner_name_correct == 'No') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.owner_name_correct == 'No') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._ownernameCorrect('No')}
                             >
                                 <Text
-                                    style={(this.state.form_info.owner_name_correct == 'No') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.owner_name_correct == 'No') ? Commercial.pickedButtonSelectedText : ''}
                                 >NO</Text>
                             </TouchableOpacity>
                         </View>
@@ -461,24 +461,24 @@ export default class NonCommercialFormScreen extends Component {
                         }}>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.blackarea == 'Yes') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.blackarea == 'Yes') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._blackArea('Yes')}
                             >
                                 <Text
-                                    style={(this.state.form_info.blackarea == 'Yes') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.blackarea == 'Yes') ? Commercial.pickedButtonSelectedText : ''}
                                 >YES</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.blackarea == 'No') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.blackarea == 'No') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._blackArea('No')}
                             >
                                 <Text
-                                    style={(this.state.form_info.blackarea == 'No') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.blackarea == 'No') ? Commercial.pickedButtonSelectedText : ''}
                                 >NO</Text>
                             </TouchableOpacity>
                         </View>
@@ -493,24 +493,24 @@ export default class NonCommercialFormScreen extends Component {
                         }}>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.highrise == 'Yes') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.highrise == 'Yes') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._highrise('Yes')}
                             >
                                 <Text
-                                    style={(this.state.form_info.highrise == 'Yes') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.highrise == 'Yes') ? Commercial.pickedButtonSelectedText : ''}
                                 >YES</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[
-                                    NonCommercial.pickedButton,
-                                    (this.state.form_info.highrise == 'No') ? NonCommercial.pickedButtonSelected : NonCommercial.pickedButtonNormal
+                                    Commercial.pickedButton,
+                                    (this.state.form_info.highrise == 'No') ? Commercial.pickedButtonSelected : Commercial.pickedButtonNormal
                                 ]}
                                 onPress={() => this._highrise('No')}
                             >
                                 <Text
-                                    style={(this.state.form_info.highrise == 'No') ? NonCommercial.pickedButtonSelectedText : ''}
+                                    style={(this.state.form_info.highrise == 'No') ? Commercial.pickedButtonSelectedText : ''}
                                 >NO</Text>
                             </TouchableOpacity>
                         </View>
@@ -564,7 +564,7 @@ export default class NonCommercialFormScreen extends Component {
                     </View>
 
                 </View>
-                <TouchableOpacity style={NonCommercial.fullBlock}
+                <TouchableOpacity style={Commercial.fullBlock}
                     onPress={this._submitForm}>
                     <Text style={theme.fullBlockText}>{this.state.save_button_label}</Text>
                 </TouchableOpacity>
@@ -690,7 +690,7 @@ export default class NonCommercialFormScreen extends Component {
     _selectImageOption = (imageKey) => {
         this.setModalVisible(true, imageKey);
     }
-
+    
     setModalVisible(visible, imageKey) {
         this.setState({
             modalVisible: visible,
@@ -720,7 +720,6 @@ export default class NonCommercialFormScreen extends Component {
             { cancelable: false },
         );
     }
-
     _newForm = async () => {
         let User = await AsyncStorage.getItem('userToken');
         this.setState({
@@ -728,7 +727,7 @@ export default class NonCommercialFormScreen extends Component {
         })
         let perform_datetime = new Date().toJSON().toString().replace('T', ' ').replace('Z', '')
         let taskPerform = {
-            name: 'non_commercial',
+            name: COMMERCIAL,
             seq_id: this.state.seq_id,
             taskdetail: this.state.taskData.taskdetail,
             taskperform: JSON.stringify({
@@ -754,7 +753,7 @@ export default class NonCommercialFormScreen extends Component {
             value: TodayDate()
         }
         InsertNewLog(log)
-        this.props.navigation.navigate('NonCommercial')
+        this.props.navigation.navigate('Commercial')
     }
 
     _updateForm = async () => {
@@ -765,7 +764,7 @@ export default class NonCommercialFormScreen extends Component {
         let perform_datetime = new Date().toJSON().toString().replace('T', ' ').replace('Z', '')
         let taskPerform = {
             id: parseInt(this.state.taskid),
-            name: 'non_commercial',
+            name: COMMERCIAL,
             seq_id: this.state.seq_id,
             taskdetail: this.state.taskData.taskdetail,
             taskperform: JSON.stringify({
@@ -778,11 +777,10 @@ export default class NonCommercialFormScreen extends Component {
         }
 
         updateTaskDone(taskPerform)
-        this.props.navigation.navigate('NonCommercial', {
+        this.props.navigation.navigate('Commercial', {
             form: 'completed'
         })
     }
-
     _renderModal = () => {
         return (
             <Modal
@@ -912,7 +910,6 @@ export default class NonCommercialFormScreen extends Component {
             })
         }).catch((err) => console.log(err))
     }
-
     async componentDidMount() {
         switch (this.state.form) {
             case 'new':

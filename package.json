@@ -17,6 +17,7 @@
     "react-native-elements": "1.0.0",
     "react-native-gesture-handler": "1.0.12",
     "react-native-image-crop-picker": "0.21.3",
+    "react-native-image-pan-zoom": "^2.1.11",
     "react-native-vector-icons": "6.2.0",
     "react-navigation": "^3.0.9",
     "realm": "2.21.1"

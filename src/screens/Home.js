@@ -18,6 +18,7 @@ import {
 } from '../database/allSchemas' 
 import { TodayDate, FormatDate } from '../components/baseformat'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { COMMERCIAL } from '../assets/constant';
 
 export default class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -167,12 +168,12 @@ export default class HomeScreen extends Component {
           totalOpenTask: responseJson.response.total_task,
           vacantPremiseTask: responseJson.response.vacant_premises,
           nonCommercialTask: responseJson.response.non_commercial,
-          domesticTask: responseJson.response.domestic,
+          commercialTask: responseJson.response.commercial,
           tariffConfirmationTask: responseJson.response.tariff_confirmation
         }, function () {
           this.__VacantPremises(this.state.vacantPremiseTask)
           this.__NonCommercial(this.state.nonCommercialTask)
-          this.__Domestic(this.state.domesticTask)
+          this.__Commercial(this.state.commercialTask)
           this.__TariffConfirmation(this.state.tariffConfirmationTask)
         });
 
@@ -286,8 +287,19 @@ export default class HomeScreen extends Component {
           })
   }
 
-  __Domestic = (domestic_task) => {
-    console.log(domestic_task)
+  __Commercial = (commercial_task) => {
+    commercial_task.forEach((value, key) => {
+      let taskData = {
+        name: COMMERCIAL,
+        seq_id: value.seq_id,
+        tab: value.tabs_name,
+        taskdetail: value.upload_content,
+        status: '',
+        perform_datetime: '',
+        perform_staff: this.state.userInfo.info.id
+      }
+      this._checkTaskExist(taskData)
+    })
   }
 
   __TariffConfirmation = (tariff_confirmation_task)=> {

@@ -10,17 +10,17 @@ import {
 } from '../../database/allSchemas'
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons'
-import { NON_COMMERCIAL, UPLOADED } from '../../assets/constant'
+import { COMMERCIAL, UPLOADED } from '../../assets/constant'
 
-export default class NonCommercial extends Component {
+export default class CommercialScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         const state = navigation
         switch (state.state.params.form) {
             case 'uploaded':
                 return ({
-                    title: 'List of Domestic',
+                    title: 'List Commercial',
                     headerStyle: {
-                        backgroundColor: '#3c6382'
+                        backgroundColor: '#4a69bd'
                     },
                     headerTintColor: 'white',
                     headerRight: (
@@ -34,9 +34,9 @@ export default class NonCommercial extends Component {
                 break;
             default:
                 return ({
-                    title: 'List of Domestic',
+                    title: 'List of Commercial',
                     headerStyle: {
-                        backgroundColor: '#3c6382'
+                        backgroundColor: '#4a69bd'
                     },
                     headerTintColor: 'white'
                 })
@@ -62,7 +62,7 @@ export default class NonCommercial extends Component {
     _handleUpload = () => {
         this.props.navigation.navigate('Uploading',{
             form:this.props.navigation.getParam('form'),
-            module_name: NON_COMMERCIAL
+            module_name: COMMERCIAL
         })
     }
 
@@ -86,7 +86,7 @@ export default class NonCommercial extends Component {
     }
 
     _openTask = () => {
-        queryAllTaskListOpen(NON_COMMERCIAL).then((taskList) => {
+        queryAllTaskListOpen(COMMERCIAL).then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -98,7 +98,7 @@ export default class NonCommercial extends Component {
     }
 
     _openCompleted = () => {
-        queryNotUploadYetCompletedTask(NON_COMMERCIAL).then((taskList) => {
+        queryNotUploadYetCompletedTask(COMMERCIAL).then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -110,7 +110,7 @@ export default class NonCommercial extends Component {
     }
 
     _openUploaded = () => {
-        queryTaskDoneStatus(NON_COMMERCIAL,UPLOADED).then((taskList) => {
+        queryTaskDoneStatus(COMMERCIAL,UPLOADED).then((taskList) => {
             this.setState({
                 taskList: taskList
             })
@@ -159,7 +159,7 @@ export default class NonCommercial extends Component {
                         let taskdetail = JSON.parse(item.taskdetail)
                         return (
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('NonCommercialForm', {
+                                onPress={() => this.props.navigation.navigate('CommercialForm', {
                                     data: item,
                                     id: item.id,
                                     seq_id: taskdetail.id,
@@ -198,7 +198,7 @@ export default class NonCommercial extends Component {
                 })
                 break;
             case 'new':
-                sewaccFilter(sewaccInput,NON_COMMERCIAL).then((sewaccFilter) => {
+                sewaccFilter(sewaccInput,COMMERCIAL).then((sewaccFilter) => {
                     this.setState({
                         taskList: sewaccFilter
                     })

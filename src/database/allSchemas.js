@@ -273,12 +273,12 @@ export const queryTaskDoneStatus = (module_name, current_status) => new Promise(
         ).catch((error) => reject(error))
 })
 
-export const queryNotUploadYetCompletedTask = () => new Promise((resolve, reject) => {
+export const queryNotUploadYetCompletedTask = (module_name) => new Promise((resolve, reject) => {
     Realm.open(databaseOption)
         .then(
             realm => {
                 realm.write(() => {
-                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('status!="uploaded"')
+                    let allTaskDone = realm.objects(TASK_DONE_SCHEMA).filtered('name="'+ module_name +'" AND status!="uploaded"')
                     resolve(allTaskDone)
                 })
             }

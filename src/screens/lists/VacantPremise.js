@@ -97,7 +97,7 @@ export default class VacantPremiseScreen extends Component {
     }
 
     _openCompleted = () => {
-        queryNotUploadYetCompletedTask().then((taskList) => {
+        queryNotUploadYetCompletedTask(VACANT_PREMISE).then((taskList) => {
             this.setState({
                 taskList: taskList
             })

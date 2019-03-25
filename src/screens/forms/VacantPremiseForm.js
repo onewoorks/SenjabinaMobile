@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import {
-    View, Text, ScrollView,
+    View, Text, ScrollView, Modal, TouchableHighlight, Alert,
     TouchableOpacity, Image, Dimensions, AsyncStorage, Picker, TextInput
 } from 'react-native'
-import theme from '../../assets/theme'
+import theme, { ThemeModal, ThemeBase } from '../../assets/theme'
 import ImagePicker from 'react-native-image-crop-picker';
-import { insertNewTaskDone, updateTaskList, updateTaskDone, InsertNewLog } from '../../database/allSchemas';
+import { insertNewTaskDone, updateTaskList, updateTaskDone, InsertNewLog } from '../../database/allSchemas'
 import { TodayDate } from '../../components/baseformat'
-import { VACANT_PREMISE } from '../../assets/constant';
+import { VACANT_PREMISE } from '../../assets/constant'
+import ImageZoom from 'react-native-image-pan-zoom'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const w = ((Dimensions.get('window').width - 7) / 3)
 
@@ -15,6 +17,8 @@ export default class VacantPremiseForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            modalVisible: false,
+            zoomImage: 0,
             taskid: this.props.navigation.getParam('id'),
             taskData: this.props.navigation.getParam('data'),
             seq_id: this.props.navigation.getParam('seq_id'),
@@ -42,12 +46,13 @@ export default class VacantPremiseForm extends Component {
                 tintColor: '#fff'
             }
         };
-    };
+    }
 
     render() {
         let task = JSON.parse(this.state.taskData.taskdetail)
         return (
             <ScrollView>
+                {this._renderModal()}
                 <View style={theme.formViewArea}>
                     <View style={theme.formView}>
                         <Text style={theme.formViewLabel}>Owner Name : </Text>
@@ -197,6 +202,68 @@ export default class VacantPremiseForm extends Component {
         )
     }
 
+    _renderModal = () => {
+        return (
+            <Modal
+                style={{ backgroundColor: 'red' }}
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    console.log('close')
+                }
+                }>
+                <View style={[ThemeModal.background, { height: Dimensions.get('window').height }]}>
+                    <View style={{ alignItems: 'flex-end', padding: 10 }}>
+                        <TouchableHighlight
+                            onPress={() => {
+                                this.setModalVisible(!this.state.modalVisible);
+                            }}>
+                            <Text style={ThemeModal.textlabel}>
+                                <Icon name="md-close" size={32} />
+                            </Text>
+                        </TouchableHighlight>
+                    </View>
+                    <View>
+                        {this._showImageToZoom(true, this.state.zoomImage)}
+                    </View>
+
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        alignContent: 'space-around',
+                        padding: 10,
+                        backgroundColor: '#000'
+                    }}>
+
+                        <View>
+                            <TouchableOpacity onPress={() => this._pickimage()}>
+                                <Text style={ThemeModal.textlabel}>
+                                    <Icon name="md-camera" size={34} />
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => this._albumPicker()}>
+                                <Text style={ThemeModal.textlabel}>
+                                    <Icon name="md-image" size={34} />
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => this._confirmDeleteImage(this.state.zoomImage)}>
+                                <Text style={ThemeModal.textlabel}>
+                                    <Icon name="md-trash" size={34} />
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+
     _meterConnected = (option) => {
         this.setState({
             meter_connected: option,
@@ -213,13 +280,12 @@ export default class VacantPremiseForm extends Component {
         let picker = [];
         for (i = 0; i < 5; i++) {
             picker.push(
-                <TouchableOpacity key={i} onPress={() => this._pickimage()}
-                    style={{ width: w, padding: 3 }}
-                >
-                    <View>
+                <View key={i}>
+                    <View style={{ width: w, padding: 3 }}>
                         {this._showImage(this.state.showme, i)}
                     </View>
-                </TouchableOpacity>
+                </View>
+
             )
         }
         return picker
@@ -229,31 +295,90 @@ export default class VacantPremiseForm extends Component {
         if (showme == true) {
             if (this.state.image[key] != null) {
                 return (
-                    <Image
-                        style={[{ width: w - 6, height: w - 6, },
-                        ]}
-                        source={{ uri: this.state.image[key].path }}
-                        resizeMode="cover"
-                    />
+                    <TouchableOpacity onPress={() => { this._selectImageOption(key) }}>
+                        <Image
+                            style={[{ width: w - 6, height: w - 6, },
+                            ]}
+                            source={{ uri: this.state.image[key].path }}
+                            resizeMode="cover"
+                        />
+                    </TouchableOpacity>
+
                 )
             } else {
                 return (
-                    <Image
-                        style={[{ width: w - 6, height: w - 6, },
-                        ]}
-                        source={require('../../assets/images/chair.jpg')}
-                        resizeMode="cover"
-                    />
+                    <TouchableOpacity onPress={() => { this._selectImageOption(key) }}>
+                        <Image
+                            style={[{ width: w - 6, height: w - 6, },
+                            ]}
+                            source={require('../../assets/images/logo-bw.png')}
+                            resizeMode="cover"
+                        />
+                    </TouchableOpacity>
                 )
             }
         } else {
             return (
-                <Image
-                    style={[{ width: w - 6, height: w - 6, },
-                    ]}
-                    source={require('../../assets/images/chair.jpg')}
-                    resizeMode="cover"
-                />
+                <TouchableOpacity onPress={() => { this._selectImageOption(key) }}>
+                    <Image
+                        style={[{ width: w - 6, height: w - 6, },
+                        ]}
+                        source={require('../../assets/images/logo-bw.png')}
+                        resizeMode="cover"
+                    />
+                </TouchableOpacity>
+            )
+        }
+    }
+
+    _showImageToZoom = (showme, key) => {
+        if (showme == true) {
+            if (this.state.image[this.state.zoomImage] != null) {
+                return (
+                    <ImageZoom
+                        cropWidth={Dimensions.get('window').width}
+                        cropHeight={Dimensions.get('window').height - 130}
+                        imageWidth={Dimensions.get('window').width}
+                        imageHeight={Dimensions.get('window').width}>
+                        <Image style={
+                            {
+                                width: Dimensions.get('window').width,
+                                height: Dimensions.get('window').width
+                            }}
+                            source={{ uri: this.state.image[this.state.zoomImage].path }} />
+                    </ImageZoom>
+                )
+            } else {
+                return (
+                    <View
+                        style={{
+                            width: Dimensions.get('window').width,
+                            height: Dimensions.get('window').height - 120,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                        <Image
+                            source={require('../../assets/images/logo-bw.png')}
+                            resizeMode="cover"
+                        />
+                    </View>
+
+                )
+            }
+        } else {
+            return (
+                <View
+                    style={{
+                        width: Dimensions.get('window').width,
+                        height: Dimensions.get('window').height - 120,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Image
+                        source={require('../../assets/images/logo-bw.png')}
+                        resizeMode="cover"
+                    />
+                </View>
             )
         }
     }
@@ -263,9 +388,15 @@ export default class VacantPremiseForm extends Component {
             width: 720,
             height: 720,
             cropping: true
-          }).then(image => {
-            console.log(image);
-          });
+        }).then(image => {
+            var nowImage = this.state.image
+            nowImage.push(image)
+            this.setState({
+                showme: true,
+                image: nowImage,
+                modalVisible: false
+            })
+        }).catch((err) => console.log(err))
     }
 
     _pickimage = () => {
@@ -279,7 +410,8 @@ export default class VacantPremiseForm extends Component {
             nowImage.push(image[0])
             this.setState({
                 showme: true,
-                image: nowImage
+                image: nowImage,
+                modalVisible: false
             })
         }).catch((err) => console.log(err))
     }
@@ -295,6 +427,10 @@ export default class VacantPremiseForm extends Component {
                 this._updateForm()
                 break;
         }
+    }
+
+    _selectImageOption = (imageKey) => {
+        this.setModalVisible(true, imageKey);
     }
 
     _newForm = async () => {
@@ -316,7 +452,7 @@ export default class VacantPremiseForm extends Component {
                 perform_date: perform_datetime,
                 images: this.state.image,
             }),
-            tab: this.state.tab ,
+            tab: this.state.tab,
             status: '',
             datetime: perform_datetime,
             perform_staff: this.state.userInfo.info.id.toString(),
@@ -333,7 +469,7 @@ export default class VacantPremiseForm extends Component {
         let log = {
             key_name: 'task_completed',
             value: TodayDate()
-          }
+        }
         InsertNewLog(log)
         this.props.navigation.navigate('VacantPremise')
     }
@@ -363,8 +499,8 @@ export default class VacantPremiseForm extends Component {
         }
 
         updateTaskDone(taskPerform)
-        this.props.navigation.navigate('VacantPremise',{
-            form : 'completed'
+        this.props.navigation.navigate('VacantPremise', {
+            form: 'completed'
         })
     }
 
@@ -372,10 +508,10 @@ export default class VacantPremiseForm extends Component {
         switch (this.state.form) {
             case 'new':
                 let task = JSON.parse(this.state.taskData.taskdetail)
-                this.setState({ 
+                this.setState({
                     actual_classification: task.current_class,
                     tab: this.state.taskData.tab
-                 })
+                })
                 break;
             case 'uploaded':
             case 'completed':
@@ -391,5 +527,36 @@ export default class VacantPremiseForm extends Component {
                 })
                 break;
         }
+    }
+
+    setModalVisible(visible, imageKey) {
+
+        this.setState({
+            modalVisible: visible,
+            zoomImage: imageKey
+        });
+    }
+
+    _confirmDeleteImage = (key) => {
+        Alert.alert(
+            'Delete Image',
+            'Are you sure to delete this image?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK', onPress: () => {
+                        this.state.image.splice(key, 1)
+                        this.setState({
+                            modalVisible: false
+                        })
+                    }
+                },
+            ],
+            { cancelable: false },
+        );
     }
 }

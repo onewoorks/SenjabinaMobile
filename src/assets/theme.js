@@ -20,6 +20,15 @@ export const Menu = StyleSheet.create({
     }
 })
 
+export const ThemeModal = StyleSheet.create({
+    background: {
+        backgroundColor: '#000000'
+    },
+    textlabel: {
+        color: '#fff'
+    }
+}) 
+
 export const NonCommercial = StyleSheet.create({
     formViewArea: {
         backgroundColor: '#60a3bc',
@@ -37,6 +46,37 @@ export const NonCommercial = StyleSheet.create({
     pickedButtonNormal: {
         borderWidth:1,
         borderColor: '#60a3bc'
+    },
+    pickedButtonSelectedText: {
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    fullBlock: {
+        paddingTop:20,
+        paddingBottom: 20,
+        backgroundColor: '#0a3d62',
+        alignItems: 'center',
+        width:Dimensions.get('window').width
+    }
+})
+
+export const Commercial = StyleSheet.create({
+    formViewArea: {
+        backgroundColor: '#6a89cc',
+        borderBottomWidth: 1, 
+        borderBottomColor: '#dadada',
+    },
+    pickedButton: {
+        flex:1,
+        justifyContent:'center', alignItems:'center',
+        height:50
+    },
+    pickedButtonSelected: {
+        backgroundColor: '#6a89cc',
+    },
+    pickedButtonNormal: {
+        borderWidth:1,
+        borderColor: '#6a89cc'
     },
     pickedButtonSelectedText: {
         color: '#fff',

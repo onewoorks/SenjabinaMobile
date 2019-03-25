@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
 import theme, { Menu } from '../assets/theme'
 import { queryAllTaskListOpen, queryTaskDoneStatus, queryCompletedTaskNotUpload } from '../database/allSchemas'
-import { COMPLETED, VACANT_PREMISE, NON_COMMERCIAL, UPLOADED } from '../assets/constant'
+import { COMPLETED, VACANT_PREMISE, NON_COMMERCIAL, UPLOADED, COMMERCIAL } from '../assets/constant'
 import { Header } from 'react-navigation';
 
 let menuList = [
@@ -20,8 +20,8 @@ let menuList = [
     },
     {
         'label': 'Commercial',
-        'nav': 'Domestic',
-        const: '',
+        'nav': 'Commercial',
+        const: COMMERCIAL,
         'backgroundColor': '#1e3799'
     },
     {

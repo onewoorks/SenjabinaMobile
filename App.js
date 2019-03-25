@@ -8,7 +8,8 @@ import OtherScreen from './src/screens/Other'
 import TaskScreen from './src/screens/Task'
 import VacantPremiseScreen from './src/screens/lists/VacantPremise'
 import TariffConfirmationScreen from './src/screens/lists/TariffConfirmation'
-import DomesticScreen from './src/screens/lists/Domestic'
+import CommercialScreen from './src/screens/lists/Commercial'
+import CommercialFormScreen from './src/screens/forms/CommercialForm'
 import NonCommercialScreen from './src/screens/lists/NonCommercial'
 import NonCommercialFormScreen from './src/screens/forms/NonCommercial'
 import VacantPremiseFormScreen from './src/screens/forms/VacantPremiseForm'
@@ -24,7 +25,8 @@ const AppStack = createStackNavigator({
   Task: TaskScreen,
   VacantPremise: VacantPremiseScreen,
   TariffConfirmation: TariffConfirmationScreen,
-  Domestic: DomesticScreen,
+  Commercial: CommercialScreen,
+  CommercialForm: CommercialFormScreen,
   NonCommercial: NonCommercialScreen,
   NonCommercialForm: NonCommercialFormScreen,
   VacantPremiseForm: VacantPremiseFormScreen,
